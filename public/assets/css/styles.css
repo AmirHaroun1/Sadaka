@@ -1,0 +1,216 @@
+.navbar.navbar-light.navbar-expand-md.navigation-clean {
+  background-color: #19b962;
+}
+
+.signup {
+  border-right: 3px white solid;
+}
+
+.text-center.header-font {
+  margin-top: -50px;
+}
+
+.btn.btn-primary.startCampaginButton {
+  background-color: white;
+  color: #19b962;
+}
+
+.highlight-blue {
+  background-color: #19b962;
+}
+
+.explore-intro {
+  background-color: white;
+  padding-bottom: 60px;
+}
+
+.container.expore-intro {
+  background: white;
+  display: block;
+  width: 100%;
+}
+
+.search-btn {
+  color: white;
+  background-color: #19b962;
+  border: none;
+}
+
+.name {
+  text-align: center;
+  font-size: 20px;
+  padding-top: 20px;
+  color: white;
+}
+
+.box {
+  font-size: 13px;
+  background-color: #19b962;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.hisImage {
+  width: 145px;
+  height: 135px;
+  margin-top: 10px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.box {
+  box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.175) !important;
+  color: white;
+}
+
+.highlight-blue p {
+  color: white;
+}
+
+.btn.btn-primary.startCampaginButton {
+  background-color: white;
+  opacity: 1;
+}
+
+.box .title {
+  font-size: 15px;
+  background: #19b962;
+}
+
+.imageDiv {
+  width: 100%;
+  background-color: #fbf8f6;
+}
+
+.container.campaginsContainer {
+  padding-bottom: 25px;
+}
+
+.progress {
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.social {
+  padding-bottom: 15px;
+}
+
+.progress {
+  width: 80%;
+  background-color: white;
+  margin-left: 20px;
+}
+
+.progress-bar {
+  background-color: green;
+}
+
+.btn.btn-primary.startCampaginButton {
+  border: none;
+}
+
+.btn.btn-primary.startCampaginButton:click {
+  background-color: red;
+}
+
+.btn.btn-primary.showMore {
+  width: 100%;
+}
+
+.btn.btn-primary.rounded-btn.navigateNumber {
+  width: 50px;
+  height: 50px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 25px;
+  margin-left: 10px;
+  background-color: white;
+  border: none;
+  color: #19b962;
+}
+
+.text-center.howItworkdetail {
+  padding-top: 30px;
+}
+
+.footer-clean {
+  background-color: #19b962;
+  color: white;
+  opacity: 1;
+}
+
+.startCampaginHeading {
+  float: right;
+  color: #212529;
+}
+
+.how-works-tab-items {
+  background-color: #19b962;
+  color: white;
+  border: none;
+  padding-bottom: 30px;
+  justify-content: center;
+}
+
+.Indexs {
+  justify-content: center;
+  text-align: center;
+}
+
+.start-campagin {
+  background-color: white;
+  padding-top: 20px;
+}
+
+.nav.nav-tabs.start-campagin-tab-items {
+  background-color: white;
+  color: black;
+  border: none;
+  padding-bottom: 30px;
+  justify-content: center;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .start-campagin-nav-link {
+  width: 50px;
+  height: 50px;
+  padding: 10px 16px;
+  font-size: 18px;
+  border-radius: 25px;
+  border: none;
+  margin-left: 10px;
+  background-color: #b9b9b9;
+  border: none;
+  color: white;
+  text-align: center;
+}
+
+.nav-tabs .nav-link {
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .start-campagin-nav-link.active {
+  width: 50px;
+  height: 50px;
+  padding: 10px 16px;
+  font-size: 18px;
+  border-radius: 25px;
+  margin-left: 10px;
+  background-color: #393939;
+  border: none;
+  color: white;
+  text-align: center;
+}
+
+.deadLabel {
+  float: right;
+  font-size: 18px;
+}
+
+.deadHeading {
+  float: right;
+  font-size: 18px;
+}
+
