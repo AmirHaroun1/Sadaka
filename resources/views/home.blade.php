@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Charity</title>
+    <title>Remember Them</title>
     <link rel="icon" href="img/favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@600&display=swap" rel="stylesheet">
 
@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <!-- magnific popup CSS -->
     <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
     <!-- nice select CSS -->
     <link rel="stylesheet" href="css/nice-select.css">
     <!-- swiper CSS -->
@@ -61,15 +62,15 @@
 
                                     @else
                                     <li class="nav-item">
-                                        <a class="nav-link" href="index.html">اشتراك</a>
+                                        <a class="nav-link" href="{{route('register')}}">اشتراك</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="about.html" style="border-right: 1px white dashed">تسجيل دخول</a>
+                                        <a class="nav-link" href="{{route('login')}}" style="border-right: 1px white dashed">تسجيل دخول</a>
                                     </li>
                                 @endauth
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">اكتشف</a>
+                                    <a class="nav-link" href="#">اكتشف & تبرع</a>
                                 </li>
                                 <li class="d-none d-lg-block">
                                     <a class="btn_1 green" href="#" style="background-color:  #00c424 ; font-size: 16px">ابدأ حملة تبرع</a>
@@ -109,14 +110,14 @@
     <!--::passion part start::-->
     <section class="passion_part section_padding">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-xl-8">
-                    <div class="section_tittle text-center">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section_tittle float-right">
                         <h2>تبرع لحملات قائمة</h2>
                     </div>
                 </div>
             </div>
-            <div class="row ">
+            <div class="row top" >
                 <div class="col-sm-6 col-lg-3 col-xl-3">
                     <div class="single-home-passion">
                         <div class="card">
@@ -226,356 +227,43 @@
 
 
     <!-- feature_part start-->
-    <section class="feature_part">
+    <section class="feature_part top">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-xl-8">
-                    <div class="section_tittle text-center">
-                        <p>Awesome Feature</p>
-                        <h2>How Could You Help </h2>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section_tittle float-right">
+                        <h2>اختر مشروع لتوجه تبرعات إليه</h2>
                     </div>
                 </div>
             </div>
             <div class="row justify-content-center">
-                <div class="col-lg-5 col-sm-6">
-                    <div class="single_feature">
-                        <div class="single_feature_part">
-                            <div class=" d-flex align-items-center">
-                                <img src="img/icon/feature_1.svg" alt="">
-                                <h4>Give Donation</h4>
-                            </div>
-                            <p>Our his abundantly subdue she'd night own of two two his deasons face you place can upon
-                                letter.</p>
-                        </div>
+                <ul id="CreateCampaigns" class="nav nav-pills">
+
+                    @foreach($categories as $category)
+                    <li class="nav-item">
+                        <a href="#{{str_replace(' ', '', $category->name)}}" data-toggle="tab" class="nav-link" style="color: #00c424 ; font-size: 20px">
+                            {{$category->name}}
+                        </a>
+                    </li>
+                    @endforeach
+                </ul>
+                <div class="tab-content justify-content-center text-center">
+
+                    @foreach($categories as $category)
+                    <div class="tab-pane fade show pt-5" id="{{str_replace(' ', '', $category->name)}}">
+                        <h4 class="mt-2">{{$category->name}}</h4>
+                        <p>Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui. Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth.</p>
                     </div>
-                </div>
-                <div class="col-lg-5 col-sm-6">
-                    <div class="single_feature">
-                        <div class="single_feature_part">
-                            <div class=" d-flex align-items-center">
-                                <img src="img/icon/feature_2.svg" alt="">
-                                <h4>Become A Volunteer</h4>
-                            </div>
-                            <p>Our his abundantly subdue she'd night own of two two his deasons face you place can upon
-                                letter.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-5 col-sm-6">
-                    <div class="single_feature">
-                        <div class="single_feature_part">
-                            <div class=" d-flex align-items-center">
-                                <img src="img/icon/feature_3.svg" alt="">
-                                <h4>Child Education</h4>
-                            </div>
-                            <p>Our his abundantly subdue she'd night own of two two his deasons face you place can upon
-                                letter.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-5 col-sm-6">
-                    <div class="single_feature">
-                        <div class="single_feature_part">
-                            <div class=" d-flex align-items-center">
-                                <img src="img/icon/feature_4.svg" alt="">
-                                <h4>Quick Fundraise</h4>
-                            </div>
-                            <p>Our his abundantly subdue she'd night own of two two his deasons face you place can upon
-                                letter.</p>
-                        </div>
-                    </div>
+                    @endforeach
+
                 </div>
             </div>
         </div>
     </section>
     <!-- feature_part start-->
 
-    <!-- top_service part start-->
-    <section class="be_part">
-        <div class="container">
-            <div class="row justify-content-between align-items-center">
-                <div class="col-lg-6">
-                    <div class="be_part_text">
-                        <h2>Be a part of the break
-                            through and make someones
-                            dream come true</h2>
-                        <p>Our his abundantly subdue she'd night own of two two his herb seasons
-                            face you hesea placees can't upon dominion make beginning fowl waters
-                            seasons in also moveth hand beginning living face kind beginning from asid</p>
-                        <a href="#" class="btn_2">learn more</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <img src="img/Charity.jpg" alt="" class="be_img">
-    </section>
-    <!-- top_service part end-->
-
-    <!-- counter part start-->
-    <section class="counter">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="single_counter d-flex">
-                        <img src="img/icon/feature_1.svg" alt="">
-                        <div class="single_counter_text">
-                            <p>Total Collection</p>
-                            <span class="count">58,9672412</span>
-                        </div>
-                    </div>
-                    <div class="single_counter d-flex">
-                        <img src="img/icon/feature_2.svg" alt="">
-                        <div class="single_counter_text">
-                            <p>Helped People</p>
-                            <span class="count">58,9672412</span>
-                        </div>
-                    </div>
-                    <div class="single_counter d-flex">
-                        <img src="img/icon/feature_3.svg" alt="">
-                        <div class="single_counter_text">
-                            <p>Total Volunteer</p>
-                            <span class="count">58,9672412</span>
-                        </div>
-                    </div>
-                    <div class="single_counter d-flex">
-                        <img src="img/icon/feature_4.svg" alt="">
-                        <div class="single_counter_text">
-                            <p>Successed Mission</p>
-                            <span class="count">58,967</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- counter part end-->
 
 
-    <!-- intro_video_bg start-->
-    <section class="intro_video_bg">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-8 col-lg-6">
-                    <div class="intro_video_iner text-center">
-                        <h2>Forget what you can get and
-                            see what you can give</h2>
-                        <a href="#" class="btn_2">Become a Volunteer</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- intro_video_bg part start-->
-
-    <!--::volunteers_part start::-->
-    <section class="volunteers_part section_padding">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-xl-8">
-                    <div class="section_tittle text-center">
-                        <p>volunteers</p>
-                        <h2>Expert Volunteers</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6 col-lg-3">
-                    <div class="single_blog_item">
-                        <div class="single_blog_img">
-                            <img src="img/volunteers/volunteers_1.png" alt="doctor">
-                            <div class="social_icon">
-                                <a href="#"> <i class="ti-facebook"></i> </a>
-                                <a href="#"> <i class="ti-twitter-alt"></i> </a>
-                                <a href="#"> <i class="ti-instagram"></i> </a>
-                                <a href="#"> <i class="ti-skype"></i> </a>
-                            </div>
-                        </div>
-                        <div class="single_text">
-                            <div class="single_blog_text">
-                                <h3>David Phillips</h3>
-                                <p>Project Manager</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-3">
-                    <div class="single_blog_item">
-                        <div class="single_blog_img">
-                            <img src="img/volunteers/volunteers_2.png" alt="doctor">
-                            <div class="social_icon">
-                                <a href="#"> <i class="ti-facebook"></i> </a>
-                                <a href="#"> <i class="ti-twitter-alt"></i> </a>
-                                <a href="#"> <i class="ti-instagram"></i> </a>
-                                <a href="#"> <i class="ti-skype"></i> </a>
-                            </div>
-                        </div>
-                        <div class="single_text">
-                            <div class="single_blog_text">
-                                <h3>Lindsa Rudolph</h3>
-                                <p>Field Supervisor</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-3">
-                    <div class="single_blog_item">
-                        <div class="single_blog_img">
-                            <img src="img/volunteers/volunteers_3.png" alt="doctor">
-                            <div class="social_icon">
-                                <a href="#"> <i class="ti-facebook"></i> </a>
-                                <a href="#"> <i class="ti-twitter-alt"></i> </a>
-                                <a href="#"> <i class="ti-instagram"></i> </a>
-                                <a href="#"> <i class="ti-skype"></i> </a>
-                            </div>
-                        </div>
-                        <div class="single_text">
-                            <div class="single_blog_text">
-                                <h3>Samuel Gardner</h3>
-                                <p>Co Founder</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-3">
-                    <div class="single_blog_item">
-                        <div class="single_blog_img">
-                            <img src="img/volunteers/volunteers_4.png" alt="doctor">
-                            <div class="social_icon">
-                                <a href="#"> <i class="ti-facebook"></i> </a>
-                                <a href="#"> <i class="ti-twitter-alt"></i> </a>
-                                <a href="#"> <i class="ti-instagram"></i> </a>
-                                <a href="#"> <i class="ti-skype"></i> </a>
-                            </div>
-                        </div>
-                        <div class="single_text">
-                            <div class="single_blog_text">
-                                <h3>Lindsa Rudolph</h3>
-                                <p>Field Supervisor</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--::volunteers_part end::-->
-
-    <!--::blog_part start::-->
-    <section class="blog_part padding_bottom">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-xl-8">
-                    <div class="section_tittle text-center">
-                        <p>OUr blog</p>
-                        <h2>Every Single Update</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="single_blog">
-                        <div class="appartment_img">
-                            <img src="img/blog_1.png" alt="">
-                        </div>
-                        <div class="single_appartment_content">
-                            <a href="blog.html">
-                                <h4>First cattle which earth unto let health for
-                                    can get and see what you
-                                </h4>
-                            </a>
-                            <ul class="list-unstyled">
-                                <li><a href=""> <span class="flaticon-calendar"></span> </a> May 10, 2019</li>
-                                <li><a href=""> <span class="flaticon-comment"></span> </a> 1 comments</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="right_single_blog">
-                        <div class="single_blog">
-                            <div class="media">
-                                <div class="media-body align-self-center">
-                                    <p><a href="#">healthy food</a></p>
-                                    <a href="blog.html">
-                                        <h5 class="mt-0"> Man does day divided morning after give .</h5>
-                                    </a>
-                                    <ul class="list-unstyled">
-                                        <li><a href=""> <span class="flaticon-calendar"></span> </a> May 10, 2019</li>
-                                        <li><a href=""> <span class="flaticon-comment"></span> </a> 1 comments</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="single_blog">
-                            <div class="media">
-                                <div class="media-body align-self-center">
-                                    <p><a href="#">healthy food</a></p>
-                                    <a href="blog.html">
-                                        <h5 class="mt-0"> To greater divide day hath fly moved was </h5>
-                                    </a>
-                                    <ul class="list-unstyled">
-                                        <li><a href=""> <span class="flaticon-calendar"></span> </a> May 10, 2019</li>
-                                        <li><a href=""> <span class="flaticon-comment"></span> </a> 1 comments</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="single_blog">
-                            <div class="media">
-                                <div class="media-body align-self-center">
-                                    <p><a href="#">healthy food</a></p>
-                                    <a href="blog.html">
-                                        <h5 class="mt-0"> That likeness isn't air earth seas had cattle </h5>
-                                    </a>
-                                    <ul class="list-unstyled">
-                                        <li><a href=""> <span class="flaticon-calendar"></span> </a> May 10, 2019</li>
-                                        <li><a href=""> <span class="flaticon-comment"></span> </a> 1 comments</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--::blog_part end::-->
-
-    <!--::our client part start::-->
-    <section class="client_part padding_bottom">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-xl-8">
-                    <div class="section_tittle text-center">
-                        <p>OUr Client</p>
-                        <h2>Worldwide Partners</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row align-items-center">
-                <div class="col-lg-12">
-                    <div class="client_logo owl-carousel">
-                        <div class="single_client_logo">
-                            <img src="img/client_logo/Logo_1.png" alt="">
-                        </div>
-                        <div class="single_client_logo">
-                            <img src="img/client_logo/Logo_2.png" alt="">
-                        </div>
-                        <div class="single_client_logo">
-                            <img src="img/client_logo/Logo_3.png" alt="">
-                        </div>
-                        <div class="single_client_logo">
-                            <img src="img/client_logo/Logo_4.png" alt="">
-                        </div>
-                        <div class="single_client_logo">
-                            <img src="img/client_logo/Logo_5.png" alt="">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--::our client part end::-->
 
     <!-- footer part start-->
     <footer class="footer-area">
@@ -662,6 +350,11 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <!-- easing js -->
     <script src="js/jquery.magnific-popup.js"></script>
     <!-- swiper js -->
+    <script type="text/javascript">
+
+
+    </script>
+
     <script src="js/swiper.min.js"></script>
     <script src="js/wow.min.js"></script>
     <script src="js/jquery.smooth-scroll.min.js"></script>
@@ -680,6 +373,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="js/jquery.validate.min.js"></script>
     <script src="js/mail-script.js"></script>
     <script src="js/contact.js"></script>
+
+
     <!-- custom js -->
     <script src="js/custom.js"></script>
 
