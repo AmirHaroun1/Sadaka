@@ -1917,13 +1917,13 @@ __webpack_require__.r(__webpack_exports__);
     return {
       campaign: this.campaign,
       CampaignPercentage: {
-        width: Object(lodash__WEBPACK_IMPORTED_MODULE_0__["ceil"])(this.campaign.CollectedAmount / this.campaign.project.objective) + 'px'
+        width: Object(lodash__WEBPACK_IMPORTED_MODULE_0__["ceil"])(this.campaign.CollectedAmount / this.campaign.project.objective * 100) + '%'
       }
     };
   },
   methods: {
     show: function show() {
-      return alert(this.CampaignPercentage);
+      return alert(this.CampaignPercentage.width);
     }
   }
 });

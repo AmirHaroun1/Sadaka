@@ -11,15 +11,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $users = \App\User::all();
-        $projects = \App\Project::all();
+        $users = \App\User::paginate(15);
+        $campaigns = \App\Campaign::all();
         foreach($users as $user)
         {
-            foreach ($projects as $project)
+            foreach ($campaigns as $campaign)
             {
-                factory(App\Campaign::class,1)->create([
-                    'creator_id'=>$user->id,
-                    'project_id'=>$project->id,
+                factory(App\Donation::class,1)->create([
+                    'user_id'=>$user->id,
+                    'campaign_id'=>$campaign->id,
+                    'amount' => random_int(100,200),
                     ]);
 
             }

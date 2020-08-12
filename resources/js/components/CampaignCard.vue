@@ -8,7 +8,7 @@
                 campaign : this.campaign,
 
                 CampaignPercentage :{
-                    width: ceil(this.campaign.CollectedAmount / this.campaign.project.objective)+'px',
+                    width:  ceil((this.campaign.CollectedAmount / this.campaign.project.objective) *100)+'%',
                 }
             }
         },
@@ -16,7 +16,7 @@
             {
               show()
               {
-                  return alert(this.CampaignPercentage)
+                  return alert(this.CampaignPercentage.width)
               }
             },
 
