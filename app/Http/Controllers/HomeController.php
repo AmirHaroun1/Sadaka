@@ -11,7 +11,10 @@ class HomeController extends Controller
 
     public function index()
     {
-        $campaigns = Campaign::WithCollectedAmount()->paginate(10);
+        $campaigns = Campaign::WithCollectedAmount()
+            ->with('project:id,name,objective,image')
+            ->withCount('donations')
+            ->paginate(12);
         return view('home',compact('campaigns'));
     }
 }

@@ -13,7 +13,7 @@ class CreateDonationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('donations', function (Blueprint $table) {
+        Schema::create('campaign_user', function (Blueprint $table) {
             $table->id();
 
             $table->foreignId('campaign_id');

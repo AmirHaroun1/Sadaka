@@ -37,7 +37,7 @@ class Campaign extends Model
     {
          $query->addSelect(['CollectedAmount' => function ($query) {
             $query->selectRaw('sum(amount)')
-                ->from('donations')
+                ->from('campaign_user')
                 ->whereColumn('campaign_id', 'campaigns.id');
         }]);
     }

@@ -10,7 +10,7 @@ $factory->define(\App\Campaign::class, function (Faker $faker) {
     return [
 
         'name'=>$faker->name,
-        'description' => $faker->sentence(100),
+        'description' => $faker->paragraph,
 
         'image' => 'images/campaign/campaignPhoto.jpg',
         'created_at' => now(),

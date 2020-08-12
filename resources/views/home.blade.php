@@ -118,15 +118,16 @@
                     </div>
                 </div>
             </div>
-            <div class="row top" >
+                <div id="app" class="row top" >
+
+                    @foreach($campaigns as $campaign)
+
+                                          @include('Campaign._Campaing_Card')
+                    @endforeach
 
 
-              @foreach($campaigns as $campaign)
+                </div>
 
-                  @include('Campaign._Campaing_Card')
-
-              @endforeach
-            </div>
         </div>
     </section>
     <!--::passion part end::-->

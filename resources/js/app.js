@@ -9,7 +9,7 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 
-Vue.component('card', require('./components/Card.vue').default);
+Vue.component('campaign-card', require('./components/CampaignCard.vue').default);
 
 
 const app = new Vue({
