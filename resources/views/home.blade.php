@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="css/slick.css">
     <!-- style CSS -->
     <link rel="stylesheet" href="css/style.css">
+
 </head>
 
 <body>
@@ -87,7 +88,7 @@
         </div>
     </header>
     <!-- Header part end-->
-
+    @section('content')
     <!-- banner part start-->
     <section class="banner_part">
         <div class="container">
@@ -118,149 +119,19 @@
                 </div>
             </div>
             <div class="row top" >
-                <div class="col-sm-6 col-lg-3 col-xl-3">
-                    <div class="single-home-passion">
-                        <div class="card">
-                            <img width="100%" style="height: 150px" src="img/passion/passion_2.png" class=" card-img-top" alt="blog">
-                            <div class="card-body">
 
-                                <a href="passion.html">
-                                    <h5 class="card-title">Fourth created forth fill moving
-                                        created subdue be </h5>
-                                </a>
-                                <div class="skill">
-                                    <div class="skill-bar skill11 wow slideInLeft animated">
-                                        <span class="skill-count11">75%</span>
-                                    </div>
-                                </div>
-                                <ul>
-                                    <li><img src="img/icon/passion_1.svg" alt=""> Goal: $2500</li>
-                                    <li><img src="img/icon/passion_2.svg" alt=""> Raised: $1533</li>
-                                </ul>
-                                <a href="#" class="btn_3">read more</a>
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-3 col-xl-3">
-                    <div class="single-home-passion">
-                        <div class="card">
-                            <img width="100%" style="height: 150px" src="img/passion/passion_2.png" class=" card-img-top" alt="blog">
-                            <div class="card-body">
+              @foreach($campaigns as $campaign)
 
-                                <a href="passion.html">
-                                    <h5 class="card-title">Fourth created forth fill moving
-                                        created subdue be </h5>
-                                </a>
-                                <div class="skill">
-                                    <div class="skill-bar skill11 wow slideInLeft animated">
-                                        <span class="skill-count11">75%</span>
-                                    </div>
-                                </div>
-                                <ul>
-                                    <li><img src="img/icon/passion_1.svg" alt=""> Goal: $2500</li>
-                                    <li><img src="img/icon/passion_2.svg" alt=""> Raised: $1533</li>
-                                </ul>
-                                <a href="#" class="btn_3">read more</a>
+                  @include('Campaign._Campaing_Card')
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-3 col-xl-3">
-                    <div class="single-home-passion">
-                        <div class="card">
-                            <img width="100%" style="height: 150px" src="img/passion/passion_2.png" class=" card-img-top" alt="blog">
-                            <div class="card-body">
-
-                                <a href="passion.html">
-                                    <h5 class="card-title">Fourth created forth fill moving
-                                        created subdue be </h5>
-                                </a>
-                                <div class="skill">
-                                    <div class="skill-bar skill11 wow slideInLeft animated">
-                                        <span class="skill-count11">75%</span>
-                                    </div>
-                                </div>
-                                <ul>
-                                    <li><img src="img/icon/passion_1.svg" alt=""> Goal: $2500</li>
-                                    <li><img src="img/icon/passion_2.svg" alt=""> Raised: $1533</li>
-                                </ul>
-                                <a href="#" class="btn_3">read more</a>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-3 col-xl-3">
-                    <div class="single-home-passion">
-                        <div class="card">
-                            <img width="100%" style="height: 150px" src="img/passion/passion_2.png" class=" card-img-top" alt="blog">
-                            <div class="card-body">
-
-                                <a href="passion.html">
-                                    <h5 class="card-title">Fourth created forth fill moving
-                                        created subdue be </h5>
-                                </a>
-                                <div class="skill">
-                                    <div class="skill-bar skill11 wow slideInLeft animated">
-                                        <span class="skill-count11">75%</span>
-                                    </div>
-                                </div>
-                                <ul>
-                                    <li><img src="img/icon/passion_1.svg" alt=""> Goal: $2500</li>
-                                    <li><img src="img/icon/passion_2.svg" alt=""> Raised: $1533</li>
-                                </ul>
-                                <a href="#" class="btn_3">read more</a>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+              @endforeach
             </div>
         </div>
     </section>
     <!--::passion part end::-->
+    @show
 
-
-
-    <!-- feature_part start-->
-    <section class="feature_part top">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section_tittle float-right">
-                        <h2>اختر مشروع لتوجه تبرعات إليه</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <ul id="CreateCampaigns" class="nav nav-pills">
-
-                    @foreach($categories as $category)
-                    <li class="nav-item">
-                        <a href="#{{str_replace(' ', '', $category->name)}}" data-toggle="tab" class="nav-link" style="color: #00c424 ; font-size: 20px">
-                            {{$category->name}}
-                        </a>
-                    </li>
-                    @endforeach
-                </ul>
-                <div class="tab-content justify-content-center text-center">
-
-                    @foreach($categories as $category)
-                    <div class="tab-pane fade show pt-5" id="{{str_replace(' ', '', $category->name)}}">
-                        <h4 class="mt-2">{{$category->name}}</h4>
-                        <p>Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui. Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth.</p>
-                    </div>
-                    @endforeach
-
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- feature_part start-->
 
 
 
@@ -378,6 +249,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <!-- custom js -->
     <script src="js/custom.js"></script>
 
+    <script src="{{asset('js/app.js')}}"></script>
 </body>
 
 </html>

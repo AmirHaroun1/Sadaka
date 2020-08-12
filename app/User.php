@@ -22,8 +22,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function campaigns()
+    {
+        return $this->hasMany('App\Campaign','creator_id');
+    }
+
     public function donations()
     {
         return $this->belongsToMany('App\Campaign')->using('App\Donation');
     }
+
 }

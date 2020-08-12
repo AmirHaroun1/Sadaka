@@ -11,6 +11,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UserSeeder::class);
+        $users = \App\User::all();
+        $projects = \App\Project::all();
+        foreach($users as $user)
+        {
+            foreach ($projects as $project)
+            {
+                factory(App\Campaign::class,1)->create([
+                    'creator_id'=>$user->id,
+                    'project_id'=>$project->id,
+                    ]);
+
+            }
+        }
+
     }
 }

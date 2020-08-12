@@ -13,4 +13,9 @@ class Category extends Model
     {
         return $this->hasMany('App\Project');
     }
+
+    public function campaigns()
+    {
+        return $this->hasManyThrough('App\Campaign','App\Project');
+    }
 }
