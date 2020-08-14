@@ -10,6 +10,7 @@ window.Vue = require('vue');
 
 
 Vue.component('campaign-card', require('./components/CampaignCard.vue').default);
+Vue.component('campaign-section', require('./components/CampaignSection.vue').default);
 
 
 const app = new Vue({

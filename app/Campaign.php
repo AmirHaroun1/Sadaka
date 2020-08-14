@@ -8,8 +8,8 @@ class Campaign extends Model
 {
     //
     protected $guarded = [];
-
-    public function getImage()
+    protected $appends =['photo'];
+    public function getPhotoAttribute()
     {
         if(file_exists(public_path().'/storage'.$this->image))
         {

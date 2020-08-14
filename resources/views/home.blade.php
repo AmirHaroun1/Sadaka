@@ -31,7 +31,7 @@
 
 </head>
 
-<body>
+<div>
     <!--::header part start::-->
     <header class="main_menu home_menu">
         <div class="container">
@@ -107,30 +107,11 @@
     </section>
     <!-- banner part start-->
 
+<div id="app">
 
-    <!--::passion part start::-->
-    <section class="passion_part section_padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section_tittle float-right">
-                        <h2>تبرع لحملات قائمة</h2>
-                    </div>
-                </div>
-            </div>
-                <div id="app" class="row top" >
+    <campaign-section></campaign-section>
 
-                    @foreach($campaigns as $campaign)
-
-                                          @include('Campaign._Campaing_Card')
-                    @endforeach
-
-
-                </div>
-
-        </div>
-    </section>
-    <!--::passion part end::-->
+</div>
     @show
 
 

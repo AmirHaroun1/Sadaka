@@ -17,3 +17,10 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
+/*
+|--------------------------------------------------------------------------
+| Campaign Routes
+|--------------------------------------------------------------------------
+|
+*/
+Route::get('/Campaigns','CampaignController@index')->name('campaign.index');
