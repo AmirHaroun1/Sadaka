@@ -2024,11 +2024,36 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       Campaigns: [],
-      NextUrl: null
+      NextUrl: null,
+      searchName: '',
+      searchedCampaigns: []
     };
   },
   created: function created() {
@@ -2046,6 +2071,18 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         (_this$Campaigns = _this.Campaigns).push.apply(_this$Campaigns, _toConsumableArray(data.data));
 
         _this.NextUrl = data.next_page_url;
+      });
+    },
+    search: function search(endpoint) {
+      var _this2 = this;
+
+      axios.get(endpoint).then(function (_ref2) {
+        var _this2$searchedCampai;
+
+        var data = _ref2.data;
+        _this2.searchedCampaigns.length = 0;
+
+        (_this2$searchedCampai = _this2.searchedCampaigns).push.apply(_this2$searchedCampai, _toConsumableArray(data.data));
       });
     }
   }
@@ -37758,24 +37795,128 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("section", { staticClass: "passion_part section_padding" }, [
     _c("div", { staticClass: "container" }, [
-      _vm._m(0),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-lg-8" }, [
+          _c("div", { staticClass: "section_tittle float-right" }, [
+            _c(
+              "form",
+              {
+                staticClass: "form-inline md-form form-sm mt-0",
+                attrs: { method: "get" },
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.search("/search/Campaigns/" + _vm.searchName)
+                  }
+                }
+              },
+              [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.searchName,
+                      expression: "searchName"
+                    }
+                  ],
+                  staticClass:
+                    "form-control  ml-3 w-75 border-right-0 border-left-0 border-top-0",
+                  attrs: {
+                    type: "text",
+                    placeholder: "أبحث عن حملة قائمة",
+                    "aria-label": "Search"
+                  },
+                  domProps: { value: _vm.searchName },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.searchName = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("h3", { staticClass: "ml-2" }, [
+                  _c(
+                    "a",
+                    {
+                      on: {
+                        click: function($event) {
+                          return _vm.search(
+                            "search/Campaigns/" + _vm.searchName
+                          )
+                        }
+                      }
+                    },
+                    [
+                      _c("i", {
+                        staticClass: "fa fa-search",
+                        staticStyle: { cursor: "pointer" },
+                        attrs: { "aria-hidden": "true" }
+                      })
+                    ]
+                  )
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _vm.searchedCampaigns.length > 0
+              ? _c(
+                  "h4",
+                  {
+                    staticClass: "mt-3",
+                    staticStyle: { cursor: "pointer" },
+                    on: {
+                      click: function($event) {
+                        return _vm.searchedCampaigns.splice(
+                          0,
+                          _vm.searchedCampaigns.length
+                        )
+                      }
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n                       مسح نتائج البحث\n                        "
+                    ),
+                    _c("i", { staticClass: "fa fa-times" })
+                  ]
+                )
+              : _vm._e()
+          ])
+        ]),
+        _vm._v(" "),
+        _vm._m(0)
+      ]),
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "row text-center" },
+        {
+          staticClass: "row text-center",
+          staticStyle: { "margin-top": "-90px" }
+        },
         [
           _vm._l(_vm.Campaigns, function(campaign) {
-            return _c("campaign-card", {
-              key: campaign.id,
-              attrs: { campaign: campaign }
-            })
+            return _vm.searchedCampaigns.length == 0
+              ? _c("campaign-card", {
+                  key: campaign.id,
+                  attrs: { campaign: campaign }
+                })
+              : _vm._l(_vm.searchedCampaigns, function(campaign) {
+                  return _c("campaign-card", {
+                    key: campaign.id,
+                    attrs: { campaign: campaign }
+                  })
+                })
           }),
           _vm._v(" "),
           _c(
             "div",
             { staticClass: "form-group col-md-12 justify-content-center" },
             [
-              _vm.NextUrl
+              _vm.NextUrl && _vm.searchedCampaigns.length == 0
                 ? _c(
                     "button",
                     {
@@ -37803,11 +37944,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-lg-12" }, [
-        _c("div", { staticClass: "section_tittle float-right" }, [
-          _c("h2", [_vm._v("تبرع لحملات قائمة")])
-        ])
+    return _c("div", { staticClass: "col-lg-4" }, [
+      _c("div", { staticClass: "section_tittle float-right" }, [
+        _c("h2", [_vm._v("تبرع لحملات قائمة")])
       ])
     ])
   }

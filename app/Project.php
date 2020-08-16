@@ -17,4 +17,17 @@ class Project extends Model
     {
         return $this->hasMany('App\Campaign');
     }
+    public function scopeTotalStats($query)
+    {
+        $query->addSelect(['TotalDonations' => function ($query) {
+            $query->selectRaw('sum(amount)')
+                ->from('campaign_user');
+        },'TotalCampaigns'=>function($query){
+            $query->selectRaw('count(id)')
+                ->from('campaigns');
+        },'TotalDonors'=>function($query){
+            $query->selectRaw('count(id)')
+                ->from('campaigns');
+        }]);
+    }
 }

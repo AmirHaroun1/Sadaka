@@ -41,4 +41,5 @@ class Campaign extends Model
                 ->whereColumn('campaign_id', 'campaigns.id');
         }]);
     }
+
 }

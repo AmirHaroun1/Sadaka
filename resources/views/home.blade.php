@@ -112,6 +112,49 @@
     <campaign-section></campaign-section>
 
 </div>
+
+    <!-- Numbers part start-->
+
+        <section class="intro_video_bg">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-4 col-lg-4">
+                        <div class="intro_video_iner text-center">
+                            <img src="images/TotalDonors.svg">
+                            <h2 class="mt-4">
+                                عدد المتبرعين
+                                <br>
+                                {{$projects->TotalDonors}}
+                                </h2>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-4">
+                        <div class="intro_video_iner text-center">
+                            <img src="images/TotalCampagins.svg">
+                            <h2 class="mt-4">
+                                الحملات القائمة
+                                <br>
+                                {{$projects->TotalCampaigns}}
+                                </h2>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-lg-4">
+                        <div class="intro_video_iner text-center">
+                            <img src="images/TotalAmount.svg">
+                            <h2 class="mt-4">
+                                تم تمويلهم
+                                <br>
+                                {{$projects->TotalDonations}}
+                            </h2>
+                        </div>
+                    </div>
+                    <a href="#" class="btn_2 font-weight-bold card-header">أكتشف كيف نعمل</a>
+                </div>
+            </div>
+        </section>
+    <!-- banner part start-->
+
     @show
 
 

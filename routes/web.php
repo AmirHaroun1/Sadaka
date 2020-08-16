@@ -24,3 +24,4 @@ Route::get('/', 'HomeController@index')->name('home');
 |
 */
 Route::get('/Campaigns','CampaignController@index')->name('campaign.index');
+Route::get('/search/Campaigns/{name}','CampaignController@search')->name('campaign.search');

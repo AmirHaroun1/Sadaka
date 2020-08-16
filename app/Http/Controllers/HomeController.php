@@ -2,19 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Campaign;
-use App\Category;
+
+use App\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
 
     public function index()
     {
-        $campaigns = Campaign::WithCollectedAmount()
-            ->with('project:id,name,objective,image')
-            ->withCount('donations')
-            ->paginate(12);
-        return view('home',compact('campaigns'));
+         $projects = Project::TotalStats()->first();
+        return view('home',compact('projects'));
     }
 }
