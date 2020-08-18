@@ -2148,11 +2148,18 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       projects: [],
-      chooseCampaign: true,
+      selectedProject: null,
+      chooseProject: true,
+      chooseCampaign: false,
       EnterCampaignDetails: false,
       shareCampaign: false
     };
@@ -2161,6 +2168,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     this.fetch('/Projects');
   },
   methods: {
+    setChoosenProject: function setChoosenProject(project) {
+      this.selectedProject = project;
+      this.chooseProject = false;
+      this.chooseCampaign = true;
+    },
     fetch: function fetch(endpoint) {
       var _this = this;
 
@@ -38059,22 +38071,8 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("form", [
-    _c(
-      "div",
-      {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.chooseCampaign,
-            expression: "chooseCampaign"
-          }
-        ],
-        staticClass: "container",
-        attrs: { id: "chooseCampaign" }
-      },
-      [
+  return this.chooseProject
+    ? _c("div", { staticClass: "container", attrs: { id: "chooseProject" } }, [
         _c("div", { staticClass: "row" }, [
           _vm._m(0),
           _vm._v(" "),
@@ -38099,7 +38097,14 @@ var render = function() {
                       _vm._l(_vm.projects, function(project) {
                         return _c(
                           "div",
-                          { staticClass: "single-home-passion text-center" },
+                          {
+                            staticClass: "single-home-passion text-center",
+                            on: {
+                              click: function($event) {
+                                return _vm.setChoosenProject(project)
+                              }
+                            }
+                          },
                           [
                             _c(
                               "div",
@@ -38131,21 +38136,16 @@ var render = function() {
                         )
                       }),
                       _vm._v(" "),
-                      _c(
-                        "template",
-                        { slot: "next" },
-                        [
-                          _c(
-                            "btn",
-                            {
-                              staticClass: "btn btn-outline-info btn_1",
-                              staticStyle: { cursor: "pointer" }
-                            },
-                            [_vm._v("التالي")]
-                          )
-                        ],
-                        1
-                      )
+                      _c("template", { slot: "next" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-outline-info btn_1",
+                            staticStyle: { cursor: "pointer" }
+                          },
+                          [_vm._v("التالي")]
+                        )
+                      ])
                     ],
                     2
                   )
@@ -38154,9 +38154,12 @@ var render = function() {
               )
             : _vm._e()
         ])
-      ]
-    )
-  ])
+      ])
+    : this.chooseCampaign
+    ? _c("div", { staticClass: "container", attrs: { id: "chooseCampaign" } }, [
+        _vm._m(1)
+      ])
+    : _vm._e()
 }
 var staticRenderFns = [
   function() {
@@ -38165,7 +38168,17 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-md-12" }, [
       _c("h2", { staticClass: "header float-right" }, [
-        _vm._v(" ابدأ حملة تبرعات ")
+        _vm._v("\n                اختر نوع مشروع لتوجه تبرعات إليه ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("h1", [_vm._v("hello there")])
       ])
     ])
   }
@@ -50587,15 +50600,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!**********************************************************************!*\
   !*** ./resources/js/components/CreateCampaign/CreateNewCampaign.vue ***!
   \**********************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CreateNewCampaign_vue_vue_type_template_id_9f157248___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateNewCampaign.vue?vue&type=template&id=9f157248& */ "./resources/js/components/CreateCampaign/CreateNewCampaign.vue?vue&type=template&id=9f157248&");
 /* harmony import */ var _CreateNewCampaign_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateNewCampaign.vue?vue&type=script&lang=js& */ "./resources/js/components/CreateCampaign/CreateNewCampaign.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _CreateNewCampaign_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _CreateNewCampaign_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -50625,7 +50637,7 @@ component.options.__file = "resources/js/components/CreateCampaign/CreateNewCamp
 /*!***********************************************************************************************!*\
   !*** ./resources/js/components/CreateCampaign/CreateNewCampaign.vue?vue&type=script&lang=js& ***!
   \***********************************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
