@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Campaign;
 use App\Http\CampaignFilter;
+use App\Project;
 use Illuminate\Http\Request;
 
 class CampaignController extends Controller
@@ -23,5 +24,9 @@ class CampaignController extends Controller
             ->with('project:id,name,objective,image')
             ->withCount('donations')
             ->paginate();
+    }
+    public function create()
+    {
+        return view('Campaign._Create_Campaign');
     }
 }

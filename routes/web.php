@@ -25,3 +25,10 @@ Route::get('/', 'HomeController@index')->name('home');
 */
 Route::get('/Campaigns','CampaignController@index')->name('campaign.index');
 Route::get('/search/Campaigns/{name}','CampaignController@search')->name('campaign.search');
+Route::get('/CreateNewCampaign','CampaignController@create')->name('campaign.create');
+/*
+|--------------------------------------------------------------------------
+| Project Routes
+|--------------------------------------------------------------------------
+*/
+Route::get('/Projects','ProjectController@index')->name('project.index');

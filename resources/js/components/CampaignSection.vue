@@ -56,18 +56,18 @@
             }
         },
         created() {
-            this.fetch('/Campaigns');
-        },
-        methods:
-        {
-            fetch(endpoint){
-                axios.get(endpoint)
-                .then(({data})=>{
-                    this.Campaigns.push(...data.data);
-                    this.NextUrl = data.next_page_url;
-
-                })
+                this.fetch('/Campaigns');
             },
+            methods:
+                {
+                    fetch(endpoint){
+                        axios.get(endpoint)
+                            .then(({data})=>{
+                                this.Campaigns.push(...data.data);
+                                this.NextUrl = data.next_page_url;
+
+                            })
+                    },
             search(endpoint){
                 axios.get(endpoint)
                     .then(({data})=>{
