@@ -29,4 +29,9 @@ class CampaignController extends Controller
     {
         return view('Campaign._Create_Campaign');
     }
+    public  function store(Request $request,Project $project)
+    {
+        return $request;
+        return $project;
+    }
 }

@@ -26,9 +26,11 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/Campaigns','CampaignController@index')->name('campaign.index');
 Route::get('/search/Campaigns/{name}','CampaignController@search')->name('campaign.search');
 Route::get('/CreateNewCampaign','CampaignController@create')->name('campaign.create');
+Route::post('/CreateNewCampaign','CampaignController@store')->name('campaign.store');
 /*
 |--------------------------------------------------------------------------
 | Project Routes
 |--------------------------------------------------------------------------
 */
-Route::get('/Projects','ProjectController@index')->name('project.index');
+Route::get('/Categories','CategoryController@index')->name('category.index');
+

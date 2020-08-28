@@ -28,9 +28,9 @@
         <div class="row text-center" style="margin-top: -90px">
 
 
-            <campaign-card v-if="searchedCampaigns.length == 0" v-for="campaign in Campaigns" :campaign="campaign" :key="campaign.id"></campaign-card>
+            <campaign-card v-show="searchedCampaigns.length == 0" v-for="campaign in Campaigns" :campaign="campaign" :key="campaign.id"></campaign-card>
 
-            <campaign-card v-else v-for="campaign in searchedCampaigns" :campaign="campaign" :key="campaign.id"></campaign-card>
+            <campaign-card v-show="searchedCampaigns.length !==0" v-for="campaign in searchedCampaigns" :campaign="campaign" :key="campaign.id"></campaign-card>
 
 
 

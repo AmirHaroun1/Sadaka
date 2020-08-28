@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Project;
+use App\Category;
 use Illuminate\Http\Request;
 
-class ProjectController extends Controller
+class CategoryController extends Controller
 {
     public function index()
     {
-         $projects = Project::with('campaigns')->get();
+         $categories = Category::with('projects')->get();
 
         return response()->json([
-            'data' => $projects
+            'data' => $categories
         ], 200);
     }
 }

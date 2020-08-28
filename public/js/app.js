@@ -2153,35 +2153,174 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['AuthUser'],
   data: function data() {
     return {
+      categories: [],
       projects: [],
+      CampaignName: '',
+      CampaignBrief: '',
+      selectedCategory: null,
       selectedProject: null,
-      chooseProject: true,
-      chooseCampaign: false,
-      EnterCampaignDetails: false,
-      shareCampaign: false
+      currentSection: 1,
+      CampaignImage: 'http://sadaka/images/users/default.png'
     };
   },
   created: function created() {
-    this.fetch('/Projects');
+    this.fetch('/Categories');
   },
   methods: {
-    setChoosenProject: function setChoosenProject(project) {
-      this.selectedProject = project;
-      this.chooseProject = false;
-      this.chooseCampaign = true;
-    },
     fetch: function fetch(endpoint) {
       var _this = this;
 
       axios.get(endpoint).then(function (_ref) {
-        var _this$projects;
+        var _this$categories;
 
         var data = _ref.data;
 
-        (_this$projects = _this.projects).push.apply(_this$projects, _toConsumableArray(data.data));
+        (_this$categories = _this.categories).push.apply(_this$categories, _toConsumableArray(data.data));
+      });
+    },
+    setChoosenCategory: function setChoosenCategory(category) {
+      this.selectedCategory = category;
+      this.projects = category.projects;
+      this.currentSection = 2;
+    },
+    setChoosenProject: function setChoosenProject(project) {
+      this.selectedProject = project;
+      this.currentSection = 3;
+    },
+    onImageChange: function onImageChange(e) {
+      var files = e.target.files || e.dataTransfer.files;
+      this.createImage(files[0]); //passing the image to be viewed before uploading
+    },
+    createImage: function createImage(file) {
+      var _this2 = this;
+
+      // preview image before uploading
+      var image = new Image();
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        _this2.CampaignImage = e.target.result;
+      };
+
+      reader.readAsDataURL(file);
+    },
+    uploadImage: function uploadImage() {
+      this.$refs["image-ref"].click();
+    },
+    CreateCampaign: function CreateCampaign() {
+      axios.post('/CreateNewCampaign', {
+        'project': this.selectedProject,
+        'name': this.CampaignName,
+        'breif': this.CampaignBrief,
+        'image': this.CampaignImage
+      }).then(function (response) {
+        console.log(response);
       });
     }
   }
@@ -37998,17 +38137,33 @@ var render = function() {
         },
         [
           _vm._l(_vm.Campaigns, function(campaign) {
-            return _vm.searchedCampaigns.length == 0
-              ? _c("campaign-card", {
-                  key: campaign.id,
-                  attrs: { campaign: campaign }
-                })
-              : _vm._l(_vm.searchedCampaigns, function(campaign) {
-                  return _c("campaign-card", {
-                    key: campaign.id,
-                    attrs: { campaign: campaign }
-                  })
-                })
+            return _c("campaign-card", {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.searchedCampaigns.length == 0,
+                  expression: "searchedCampaigns.length == 0"
+                }
+              ],
+              key: campaign.id,
+              attrs: { campaign: campaign }
+            })
+          }),
+          _vm._v(" "),
+          _vm._l(_vm.searchedCampaigns, function(campaign) {
+            return _c("campaign-card", {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.searchedCampaigns.length !== 0,
+                  expression: "searchedCampaigns.length !==0"
+                }
+              ],
+              key: campaign.id,
+              attrs: { campaign: campaign }
+            })
           }),
           _vm._v(" "),
           _c(
@@ -38071,94 +38226,407 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return this.chooseProject
-    ? _c("div", { staticClass: "container", attrs: { id: "chooseProject" } }, [
-        _c("div", { staticClass: "row" }, [
-          _vm._m(0),
+  return _vm.currentSection === 1
+    ? _c(
+        "div",
+        { staticClass: "container mt-3", attrs: { id: "chooseCategory" } },
+        [
+          _c("div", { staticClass: "row" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            this.categories.length !== 0
+              ? _c(
+                  "div",
+                  { staticClass: "col-md-12 text-center mt-4" },
+                  [
+                    _c(
+                      "carousel",
+                      {
+                        attrs: {
+                          items: 6,
+                          nav: false,
+                          stagePadding: 0,
+                          rewind: true,
+                          loop: true,
+                          autoHeight: true
+                        }
+                      },
+                      [
+                        _vm._l(_vm.categories, function(category) {
+                          return _c(
+                            "div",
+                            { staticClass: "single-home-passion text-center" },
+                            [
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "card",
+                                  staticStyle: {
+                                    cursor: "pointer",
+                                    "background-color": "#00c424"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.setChoosenCategory(category)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("div", { staticClass: "card-body " }, [
+                                    _c("a", [
+                                      _c(
+                                        "h5",
+                                        {
+                                          staticClass: "card-title text-white "
+                                        },
+                                        [_vm._v(_vm._s(category.name))]
+                                      )
+                                    ])
+                                  ])
+                                ]
+                              )
+                            ]
+                          )
+                        }),
+                        _vm._v(" "),
+                        _c("template", { slot: "next" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-outline-info btn_1",
+                              staticStyle: { cursor: "pointer" }
+                            },
+                            [_vm._v("التالي")]
+                          )
+                        ])
+                      ],
+                      2
+                    )
+                  ],
+                  1
+                )
+              : _vm._e()
+          ])
+        ]
+      )
+    : _vm.currentSection === 2
+    ? _c(
+        "div",
+        { staticClass: "container mt-3", attrs: { id: "chooseCampaign" } },
+        [
+          _vm._m(1),
           _vm._v(" "),
-          this.projects.length !== 0
-            ? _c(
+          _c(
+            "div",
+            { staticClass: "row" },
+            _vm._l(_vm.projects, function(project) {
+              return _c(
                 "div",
-                { staticClass: "col-md-12 text-center mt-4" },
+                {
+                  staticClass:
+                    "col-sm-6 col-md-3 col-lg-3 col-xl-3 mt-2 justify-content-center text-center"
+                },
                 [
                   _c(
-                    "carousel",
+                    "div",
                     {
-                      attrs: {
-                        items: 3,
-                        nav: false,
-                        stagePadding: 0,
-                        rewind: true,
-                        loop: true,
-                        autoHeight: true
+                      staticClass: "single-home-passion text-center",
+                      on: {
+                        click: function($event) {
+                          return _vm.setChoosenProject(project)
+                        }
                       }
                     },
                     [
-                      _vm._l(_vm.projects, function(project) {
-                        return _c(
-                          "div",
-                          {
-                            staticClass: "single-home-passion text-center",
-                            on: {
-                              click: function($event) {
-                                return _vm.setChoosenProject(project)
-                              }
-                            }
-                          },
-                          [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "card",
+                          staticStyle: { cursor: "pointer" }
+                        },
+                        [
+                          _c("div", { staticClass: "card-body" }, [
                             _c(
                               "div",
                               {
-                                staticClass: "card",
-                                staticStyle: {
-                                  cursor: "pointer",
-                                  height: "200px",
-                                  "background-color": "#00c424"
-                                }
+                                staticClass: "row mb-3",
+                                attrs: { id: "projectInfo" }
                               },
                               [
-                                _c("div", { staticClass: "card-body " }, [
-                                  _c("a", [
-                                    _c(
-                                      "h5",
-                                      { staticClass: "card-title text-white " },
-                                      [_vm._v(_vm._s(project.name))]
-                                    ),
-                                    _vm._v(" "),
-                                    _c("p", { staticClass: "text-white" }, [
-                                      _vm._v(_vm._s(project.description))
-                                    ])
-                                  ])
+                                _c("div", { staticClass: "col-md-12" }, [
+                                  _c("img", {
+                                    staticClass: "img-responsive",
+                                    attrs: {
+                                      height: "65px",
+                                      width: "65px",
+                                      src: project.image
+                                    }
+                                  })
                                 ])
                               ]
-                            )
-                          ]
-                        )
-                      }),
-                      _vm._v(" "),
-                      _c("template", { slot: "next" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-outline-info btn_1",
-                            staticStyle: { cursor: "pointer" }
-                          },
-                          [_vm._v("التالي")]
-                        )
-                      ])
-                    ],
-                    2
+                            ),
+                            _vm._v(" "),
+                            _c("a", [
+                              _c("h4", { staticClass: "card-title  " }, [
+                                _vm._v(_vm._s(project.name))
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "font-weight-bold" }, [
+                              _c("span", { staticClass: "collected" }, [
+                                _vm._v(
+                                  "\n                            ج . م\n\n                        " +
+                                    _vm._s(project.objective) +
+                                    "\n                            "
+                                )
+                              ])
+                            ])
+                          ])
+                        ]
+                      )
+                    ]
                   )
-                ],
-                1
+                ]
               )
-            : _vm._e()
-        ])
-      ])
-    : this.chooseCampaign
-    ? _c("div", { staticClass: "container", attrs: { id: "chooseCampaign" } }, [
-        _vm._m(1)
-      ])
+            }),
+            0
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "btn btn-lg btn-outline-info btn_1 mt-3 float-right",
+              staticStyle: { cursor: "pointer" },
+              on: {
+                click: function($event) {
+                  _vm.currentSection = 1
+                }
+              }
+            },
+            [
+              _vm._v("\n        السابقة\n        "),
+              _c("i", { staticClass: "fa fa-arrow-right" })
+            ]
+          )
+        ]
+      )
+    : _vm.currentSection === 3
+    ? _c(
+        "div",
+        {
+          staticClass: "container mt-3 text-center",
+          attrs: { id: "CampaignDetails" }
+        },
+        [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-md-4 col-sm-12" }, [
+              _c("h2", { staticClass: "header" }, [
+                _vm._v("\n                هدف الحملة\n                "),
+                _c(
+                  "span",
+                  {
+                    staticClass: "greenText  p-4",
+                    staticStyle: { "border-style": "dotted" }
+                  },
+                  [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(_vm.selectedProject.objective) +
+                        " ج.م\n                "
+                    )
+                  ]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-8 col-sm-12" }, [
+              _c("h2", { staticClass: "header float-right" }, [
+                _vm._v(
+                  "\n                أنشاء حملة لصالحـ جمعية\n                "
+                ),
+                _c("span", { staticClass: "greenText" }, [
+                  _vm._v(
+                    "\n                            " +
+                      _vm._s(_vm.selectedProject.charity) +
+                      "\n                "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass:
+                      "btn btn-lg btn-outline-info btn_1 mt-1 float-right",
+                    staticStyle: { cursor: "pointer" },
+                    on: {
+                      click: function($event) {
+                        _vm.currentSection = 2
+                      }
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n                    السابقة\n                    "
+                    ),
+                    _c("i", { staticClass: "fa fa-arrow-right" })
+                  ]
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "row form-group mt-5 border",
+              attrs: { id: "DeadInfo" }
+            },
+            [
+              _vm._m(2),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-4 text-center" }, [
+                _c("img", {
+                  attrs: { height: "160px", src: this.CampaignImage }
+                }),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c("input", {
+                  ref: "image-ref",
+                  staticStyle: { display: "none" },
+                  attrs: { name: "CampaignImage", type: "file" },
+                  on: { change: _vm.onImageChange }
+                }),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-outline-info btn_1",
+                    staticStyle: { cursor: "pointer" },
+                    on: { click: _vm.uploadImage }
+                  },
+                  [_vm._v("أختر صورة")]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-8  mt-2 mb-5 form-group" }, [
+                _c(
+                  "label",
+                  { staticClass: "float-right", attrs: { for: "DeadName" } },
+                  [_vm._v("الاسم")]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.CampaignName,
+                      expression: "CampaignName"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { id: "DeadName", type: "text" },
+                  domProps: { value: _vm.CampaignName },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.CampaignName = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  {
+                    staticClass: "float-right pt-4",
+                    attrs: { for: "campaign_description" }
+                  },
+                  [_vm._v("نبذة عنه")]
+                ),
+                _vm._v(" "),
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.CampaignBrief,
+                      expression: "CampaignBrief"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    id: "campaign_description",
+                    rows: "2",
+                    name: "campaign_description"
+                  },
+                  domProps: { value: _vm.CampaignBrief },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.CampaignBrief = $event.target.value
+                    }
+                  }
+                })
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _vm.AuthUser.id
+            ? _c(
+                "div",
+                {
+                  staticClass: "row form-group mt-5 border",
+                  attrs: { id: "CreatorInfo" }
+                },
+                [
+                  _vm._m(3),
+                  _vm._v(" "),
+                  _vm._m(4),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "float-right",
+                        attrs: { for: "CreatorName" }
+                      },
+                      [_vm._v("الأسم")]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: { type: "text", disabled: "", id: "CreatorName" },
+                      domProps: { value: this.AuthUser.name }
+                    })
+                  ])
+                ]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "btn_1 green text-white",
+              staticStyle: {
+                "background-color": "#00c424",
+                "font-size": "16px",
+                cursor: "pointer"
+              },
+              on: { click: _vm.CreateCampaign }
+            },
+            [_vm._v("ابدأ حملة تبرع")]
+          )
+        ]
+      )
     : _vm._e()
 }
 var staticRenderFns = [
@@ -38168,7 +38636,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-md-12" }, [
       _c("h2", { staticClass: "header float-right" }, [
-        _vm._v("\n                اختر نوع مشروع لتوجه تبرعات إليه ")
+        _vm._v("\n                اختر نوع الفئة لتوجه تبرعات إليه ")
       ])
     ])
   },
@@ -38178,8 +38646,43 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-12" }, [
-        _c("h1", [_vm._v("hello there")])
+        _c("h2", { staticClass: "header float-right" }, [
+          _vm._v(" أختر نوع الحملة لتوجه تبرعات إليه")
+        ])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-12 text-center my-4 " }, [
+      _c("h5", [_vm._v("بيانات المتوفى")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-12 text-center my-4 " }, [
+      _c("h5", [_vm._v("بيانات منشئ الحملة")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-6" }, [
+      _c(
+        "label",
+        { staticClass: "float-right", attrs: { for: "CreatorNumber" } },
+        [_vm._v("رقم الهاتف")]
+      ),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: { id: "CreatorNumber", type: "text" }
+      })
     ])
   }
 ]

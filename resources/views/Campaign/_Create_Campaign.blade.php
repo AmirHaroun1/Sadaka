@@ -11,7 +11,7 @@
 <!-- feature_part start-->
 <section id="app" class="CreateCampaign section_padding">
 
-    <new-campaign-section></new-campaign-section>
+    <new-campaign-section :auth-user="{{auth()->user() ? auth()->user():'{}' }}" ></new-campaign-section>
 
 </section>
 <!-- feature_part start-->
