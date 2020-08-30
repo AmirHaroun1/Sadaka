@@ -1974,6 +1974,13 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     show: function show() {
       return alert(this.CampaignPercentage.width);
+    },
+    getCollectedMoney: function getCollectedMoney() {
+      if (this.campaign.CollectedAmount == null) {
+        return 0;
+      } else {
+        return this.campaign.CollectedAmount;
+      }
     }
   }
 });
@@ -2099,18 +2106,50 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2256,34 +2295,33 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['AuthUser'],
+  props: {
+    'AuthUser': Object,
+    'categories': Array
+  },
   data: function data() {
     return {
-      categories: [],
       projects: [],
       CampaignName: '',
       CampaignBrief: '',
       selectedCategory: null,
       selectedProject: null,
       currentSection: 1,
-      CampaignImage: 'http://sadaka/images/users/default.png'
+      CampaignImage: 'images/campaign/campaignPhoto.jpg',
+      // in case user isn't auth
+      NewUserName: '',
+      NewUserEmail: '',
+      NewUserPhone: '',
+      NewUserPassword: '',
+      errors: null
     };
   },
-  created: function created() {
-    this.fetch('/Categories');
+  computed: {
+    IsValidPhone: function IsValidPhone() {
+      return this.NewUserPhone[0] == '0' && this.NewUserPhone[1] == '1';
+    }
   },
   methods: {
-    fetch: function fetch(endpoint) {
-      var _this = this;
-
-      axios.get(endpoint).then(function (_ref) {
-        var _this$categories;
-
-        var data = _ref.data;
-
-        (_this$categories = _this.categories).push.apply(_this$categories, _toConsumableArray(data.data));
-      });
-    },
     setChoosenCategory: function setChoosenCategory(category) {
       this.selectedCategory = category;
       this.projects = category.projects;
@@ -2294,18 +2332,18 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       this.currentSection = 3;
     },
     onImageChange: function onImageChange(e) {
-      var files = e.target.files || e.dataTransfer.files;
-      this.createImage(files[0]); //passing the image to be viewed before uploading
+      this.files = e.target.files || e.dataTransfer.files;
+      this.createImage(this.files[0]); //passing the image to be viewed before uploading
     },
     createImage: function createImage(file) {
-      var _this2 = this;
+      var _this = this;
 
       // preview image before uploading
       var image = new Image();
       var reader = new FileReader();
 
       reader.onload = function (e) {
-        _this2.CampaignImage = e.target.result;
+        _this.CampaignImage = e.target.result;
       };
 
       reader.readAsDataURL(file);
@@ -2314,13 +2352,25 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       this.$refs["image-ref"].click();
     },
     CreateCampaign: function CreateCampaign() {
-      axios.post('/CreateNewCampaign', {
-        'project': this.selectedProject,
-        'name': this.CampaignName,
-        'breif': this.CampaignBrief,
-        'image': this.CampaignImage
-      }).then(function (response) {
+      var _this2 = this;
+
+      var formData = new FormData();
+      formData.append('name', this.CampaignName);
+      formData.append('description', this.CampaignBrief);
+      formData.append('image', document.querySelector('#imageInput').files[0]);
+      formData.append('project_id', this.selectedProject.id);
+
+      if (this.AuthUser.id == null) {
+        formData.append('NewUserName', this.NewUserName);
+        formData.append('NewUserPhone', this.NewUserPhone);
+        formData.append('email', this.NewUserEmail);
+        formData.append('NewUserPassword', this.NewUserPassword);
+      }
+
+      axios.post('/CreateNewCampaign', formData).then(function (response) {
         console.log(response);
+      })["catch"](function (e) {
+        _this2.errors = e.response.data.errors;
       });
     }
   }
@@ -37971,7 +38021,7 @@ var render = function() {
                 _c("span", { staticClass: "collected" }, [
                   _vm._v(
                     "\n                        ج . م\n\n                    " +
-                      _vm._s(_vm.campaign.CollectedAmount) +
+                      _vm._s(_vm.getCollectedMoney()) +
                       "\n                    "
                   )
                 ]),
@@ -38478,152 +38528,374 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c(
-            "div",
+            "form",
             {
-              staticClass: "row form-group mt-5 border",
-              attrs: { id: "DeadInfo" }
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.CreateCampaign()
+                }
+              }
             },
             [
-              _vm._m(2),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-4 text-center" }, [
-                _c("img", {
-                  attrs: { height: "160px", src: this.CampaignImage }
-                }),
-                _vm._v(" "),
-                _c("br"),
-                _vm._v(" "),
-                _c("input", {
-                  ref: "image-ref",
-                  staticStyle: { display: "none" },
-                  attrs: { name: "CampaignImage", type: "file" },
-                  on: { change: _vm.onImageChange }
-                }),
-                _vm._v(" "),
-                _c("br"),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-outline-info btn_1",
-                    staticStyle: { cursor: "pointer" },
-                    on: { click: _vm.uploadImage }
-                  },
-                  [_vm._v("أختر صورة")]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-8  mt-2 mb-5 form-group" }, [
-                _c(
-                  "label",
-                  { staticClass: "float-right", attrs: { for: "DeadName" } },
-                  [_vm._v("الاسم")]
-                ),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.CampaignName,
-                      expression: "CampaignName"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { id: "DeadName", type: "text" },
-                  domProps: { value: _vm.CampaignName },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.CampaignName = $event.target.value
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "label",
-                  {
-                    staticClass: "float-right pt-4",
-                    attrs: { for: "campaign_description" }
-                  },
-                  [_vm._v("نبذة عنه")]
-                ),
-                _vm._v(" "),
-                _c("textarea", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.CampaignBrief,
-                      expression: "CampaignBrief"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: {
-                    id: "campaign_description",
-                    rows: "2",
-                    name: "campaign_description"
-                  },
-                  domProps: { value: _vm.CampaignBrief },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.CampaignBrief = $event.target.value
-                    }
-                  }
-                })
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _vm.AuthUser.id
-            ? _c(
+              _c(
                 "div",
                 {
                   staticClass: "row form-group mt-5 border",
-                  attrs: { id: "CreatorInfo" }
+                  attrs: { id: "DeadInfo" }
                 },
                 [
-                  _vm._m(3),
+                  _vm._m(2),
                   _vm._v(" "),
-                  _vm._m(4),
+                  _c("div", { staticClass: "col-md-4 text-center" }, [
+                    _c("img", {
+                      attrs: { height: "160px", src: this.CampaignImage }
+                    }),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("input", {
+                      ref: "image-ref",
+                      staticStyle: { display: "none" },
+                      attrs: {
+                        name: "CampaignImage",
+                        id: "imageInput",
+                        type: "file"
+                      },
+                      on: { change: _vm.onImageChange }
+                    }),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-outline-info btn_1",
+                        staticStyle: { cursor: "pointer" },
+                        on: { click: _vm.uploadImage }
+                      },
+                      [_vm._v("أختر صورة")]
+                    )
+                  ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "col-md-8  mt-2 mb-5 form-group" }, [
                     _c(
                       "label",
                       {
                         staticClass: "float-right",
-                        attrs: { for: "CreatorName" }
+                        attrs: { for: "DeadName" }
                       },
-                      [_vm._v("الأسم")]
+                      [_vm._v("الاسم")]
                     ),
                     _vm._v(" "),
                     _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.CampaignName,
+                          expression: "CampaignName"
+                        }
+                      ],
                       staticClass: "form-control",
-                      attrs: { type: "text", disabled: "", id: "CreatorName" },
-                      domProps: { value: this.AuthUser.name }
+                      attrs: { id: "DeadName", required: "", type: "text" },
+                      domProps: { value: _vm.CampaignName },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.CampaignName = $event.target.value
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "float-right pt-4",
+                        attrs: { for: "campaign_description" }
+                      },
+                      [_vm._v("نبذة عنه")]
+                    ),
+                    _vm._v(" "),
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.CampaignBrief,
+                          expression: "CampaignBrief"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        required: "",
+                        id: "campaign_description",
+                        rows: "2",
+                        name: "campaign_description"
+                      },
+                      domProps: { value: _vm.CampaignBrief },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.CampaignBrief = $event.target.value
+                        }
+                      }
                     })
                   ])
                 ]
+              ),
+              _vm._v(" "),
+              this.errors
+                ? _c(
+                    "div",
+                    { attrs: { role: "alert" } },
+                    _vm._l(this.errors, function(v, k) {
+                      return _c(
+                        "div",
+                        { key: k, staticClass: "alert alert-danger" },
+                        _vm._l(v, function(error) {
+                          return _c(
+                            "p",
+                            { key: error, staticClass: "text-sm" },
+                            [
+                              _vm._v(
+                                "\n                    " +
+                                  _vm._s(error) +
+                                  "\n                "
+                              )
+                            ]
+                          )
+                        }),
+                        0
+                      )
+                    }),
+                    0
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.AuthUser.id
+                ? _c(
+                    "div",
+                    {
+                      staticClass: "row form-group mt-5 border",
+                      attrs: { id: "CreatorInfo" }
+                    },
+                    [
+                      _vm._m(3),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-6 my-2" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "float-right",
+                            attrs: { for: "CreatorNumber" }
+                          },
+                          [
+                            _vm._v(
+                              "\n                    رقم الهاتف\n                "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: {
+                            id: "CreatorNumber",
+                            type: "text",
+                            disabled: ""
+                          },
+                          domProps: { value: this.AuthUser.phone }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-6 my-2" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "float-right",
+                            attrs: { for: "CreatorName" }
+                          },
+                          [_vm._v("الأسم")]
+                        ),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            disabled: "",
+                            id: "CreatorName"
+                          },
+                          domProps: { value: this.AuthUser.name }
+                        })
+                      ])
+                    ]
+                  )
+                : _c(
+                    "div",
+                    {
+                      staticClass: "row form-group mt-5 border",
+                      attrs: { id: "SignUp" }
+                    },
+                    [
+                      _vm._m(4),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-6 my-2" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "float-right",
+                            attrs: { for: "CreatorName" }
+                          },
+                          [
+                            _vm._v(
+                              "\n                    البريد الالكترونى\n                "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.NewUserEmail,
+                              expression: "NewUserEmail"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "email",
+                            id: "CreatorEmail",
+                            required: ""
+                          },
+                          domProps: { value: _vm.NewUserEmail },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.NewUserEmail = $event.target.value
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-6 my-2" }, [
+                        _c("label", { staticClass: "float-right" }, [
+                          _vm._v("الأسم")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.NewUserName,
+                              expression: "NewUserName"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { required: "", type: "text" },
+                          domProps: { value: _vm.NewUserName },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.NewUserName = $event.target.value
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-6 my-2" }, [
+                        _c("label", { staticClass: "float-right" }, [
+                          _vm._v("كلمة السر")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.NewUserPassword,
+                              expression: "NewUserPassword"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            id: "password",
+                            type: "password",
+                            required: "",
+                            autocomplete: "new-password"
+                          },
+                          domProps: { value: _vm.NewUserPassword },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.NewUserPassword = $event.target.value
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-6 my-2" }, [
+                        _c("label", { staticClass: "float-right " }, [
+                          _vm._v(
+                            "\n                    رقم الهاتف\n                    "
+                          ),
+                          !_vm.IsValidPhone
+                            ? _c("span", { staticClass: "text-danger" }, [
+                                _vm._v("رقم الهاتف يجب أن يبدأ بـ 01")
+                              ])
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.NewUserPhone,
+                              expression: "NewUserPhone"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text", required: "" },
+                          domProps: { value: _vm.NewUserPhone },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.NewUserPhone = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    ]
+                  ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn_1 green text-white",
+                  staticStyle: {
+                    "background-color": "#00c424",
+                    "font-size": "16px",
+                    cursor: "pointer"
+                  },
+                  attrs: { disabled: !_vm.IsValidPhone, type: "submit" }
+                },
+                [_vm._v("أنشئ حملة تبرعات")]
               )
-            : _vm._e(),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "btn_1 green text-white",
-              staticStyle: {
-                "background-color": "#00c424",
-                "font-size": "16px",
-                cursor: "pointer"
-              },
-              on: { click: _vm.CreateCampaign }
-            },
-            [_vm._v("ابدأ حملة تبرع")]
+            ]
           )
         ]
       )
@@ -38672,17 +38944,15 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-6" }, [
-      _c(
-        "label",
-        { staticClass: "float-right", attrs: { for: "CreatorNumber" } },
-        [_vm._v("رقم الهاتف")]
-      ),
+    return _c("div", { staticClass: "col-md-12 text-center my-4 " }, [
+      _c("h5", [_vm._v("بيانات منشئ الحملة")]),
       _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { id: "CreatorNumber", type: "text" }
-      })
+      _c("h6", [
+        _vm._v(
+          "\n                    لديك حساب بالفعل ؟\n                    "
+        ),
+        _c("a", { attrs: { href: "/login" } }, [_vm._v("اضغط هنا")])
+      ])
     ])
   }
 ]

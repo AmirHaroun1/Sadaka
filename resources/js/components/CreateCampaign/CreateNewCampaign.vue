@@ -97,46 +97,90 @@
 
             </div>
 
+            <form @submit.prevent="CreateCampaign()">
+                <div id="DeadInfo" class="row form-group mt-5 border">
+                    <div class="col-md-12 text-center my-4 ">
+                        <h5>بيانات المتوفى</h5>
+                    </div>
 
-            <div id="DeadInfo" class="row form-group mt-5 border">
-                <div class="col-md-12 text-center my-4 ">
-                    <h5>بيانات المتوفى</h5>
+                    <div class="col-md-4 text-center">
+                        <img height = "160px" :src="this.CampaignImage">
+                        <br>
+                        <input @change="onImageChange" name="CampaignImage" style="display: none" ref="image-ref" id="imageInput"  type="file">
+                        <br>
+                        <button @click="uploadImage" class="btn btn-outline-info btn_1" style="cursor: pointer;">أختر صورة</button>
+                    </div>
+
+                    <div class="col-md-8  mt-2 mb-5 form-group">
+                        <label for="DeadName" class="float-right">الاسم</label>
+                        <input v-model="CampaignName" id="DeadName" class="form-control" required type="text">
+
+                        <label for="campaign_description" class="float-right pt-4">نبذة عنه</label>
+                        <textarea v-model="CampaignBrief" class="form-control" required id="campaign_description" rows="2" name="campaign_description"></textarea>
+                    </div>
+
+
                 </div>
 
-                <div class="col-md-4 text-center">
-                    <img height = "160px" :src="this.CampaignImage">
-                    <br>
-                    <input @change="onImageChange" name="CampaignImage" style="display: none" ref="image-ref"  type="file">
-                    <br>
-                    <button @click="uploadImage" class="btn btn-outline-info btn_1" style="cursor: pointer;">أختر صورة</button>
+                <div v-if="this.errors" class="" role="alert">
+                    <div v-for="(v, k) in this.errors" :key="k" class="alert alert-danger">
+                        <p v-for="error in v" :key="error" class="text-sm">
+                            {{ error }}
+                        </p>
+                    </div>
                 </div>
 
-                <div class="col-md-8  mt-2 mb-5 form-group">
-                    <label for="DeadName" class="float-right">الاسم</label>
-                    <input v-model="CampaignName" id="DeadName" class="form-control" type="text">
-
-                    <label for="campaign_description" class="float-right pt-4">نبذة عنه</label>
-                    <textarea v-model="CampaignBrief" class="form-control" id="campaign_description" rows="2" name="campaign_description"></textarea>
+                <div v-if="AuthUser.id" id="CreatorInfo" class="row form-group mt-5 border">
+                    <div class="col-md-12 text-center my-4 ">
+                        <h5>بيانات منشئ الحملة</h5>
+                    </div>
+                    <div class="col-md-6 my-2">
+                        <label for="CreatorNumber" class="float-right">
+                            رقم الهاتف
+                        </label>
+                        <input class="form-control" id="CreatorNumber" type="text"  disabled  :value="this.AuthUser.phone" >
+                    </div>
+                    <div class="col-md-6 my-2">
+                        <label for="CreatorName" class="float-right">الأسم</label>
+                        <input type="text" disabled  :value="this.AuthUser.name" class="form-control" id="CreatorName">
+                    </div>
                 </div>
+                <div v-else id="SignUp" class="row form-group mt-5 border">
+                    <div class="col-md-12 text-center my-4 ">
+                        <h5>بيانات منشئ الحملة</h5>
+                        <h6>
+                            لديك حساب بالفعل ؟
+                            <a href="/login">اضغط هنا</a>
 
+                        </h6>
+                    </div>
+                    <div class="col-md-6 my-2">
+                        <label for="CreatorName" class="float-right">
+                            البريد الالكترونى
+                        </label>
+                        <input v-model="NewUserEmail" type="email" class="form-control" id="CreatorEmail"  required>
+                    </div>
+                    <div class="col-md-6 my-2">
+                        <label class="float-right">الأسم</label>
+                        <input v-model="NewUserName" class="form-control" required type="text" >
+                    </div>
+                    <div class="col-md-6 my-2">
+                        <label class="float-right">كلمة السر</label>
+                        <input v-model="NewUserPassword" id="password" class="form-control" type="password" required autocomplete="new-password">
+                    </div>
 
-            </div>
+                    <div class="col-md-6 my-2">
+                        <label class="float-right " >
+                            رقم الهاتف
+                            <span v-if="!IsValidPhone" class="text-danger">رقم الهاتف يجب أن يبدأ بـ 01</span>
 
-            <div v-if="AuthUser.id" id="CreatorInfo" class="row form-group mt-5 border">
-                <div class="col-md-12 text-center my-4 ">
-                    <h5>بيانات منشئ الحملة</h5>
+                        </label>
+                        <input v-model="NewUserPhone" class="form-control" type="text"  required>
+                    </div>
+
                 </div>
-                <div class="col-md-6">
-                    <label for="CreatorNumber" class="float-right">رقم الهاتف</label>
-                    <input class="form-control" id="CreatorNumber" type="text">
-                </div>
-                <div class="col-md-6">
-                    <label for="CreatorName" class="float-right">الأسم</label>
-                    <input type="text" disabled  :value="this.AuthUser.name" class="form-control" id="CreatorName">
-                </div>
-            </div>
-            <a @click="CreateCampaign" class="btn_1 green text-white" style="background-color:  #00c424 ; font-size: 16px;cursor:pointer">ابدأ حملة تبرع</a>
-
+                <button :disabled="!IsValidPhone" type="submit"  class="btn_1 green text-white" style="background-color:  #00c424 ; font-size: 16px;cursor:pointer">أنشئ حملة تبرعات</button>
+            </form>
         </div>
 
 
@@ -144,11 +188,13 @@
 
 <script>
     export default {
-        props : ['AuthUser'],
+        props : {
+            'AuthUser' : Object,
+            'categories' : Array,
+        },
         data()
         {
             return{
-                categories:[],
                 projects:[],
                 CampaignName : '',
                 CampaignBrief: '',
@@ -156,22 +202,26 @@
                 selectedProject:null,
                 currentSection : 1,
 
-                CampaignImage:'http://sadaka/images/users/default.png',
+                CampaignImage:'images/campaign/campaignPhoto.jpg',
+
+                // in case user isn't auth
+
+                NewUserName:'',
+                NewUserEmail:'',
+                NewUserPhone:'',
+                NewUserPassword:'',
+                errors : null,
             }
         },
 
-        created() {
-            this.fetch('/Categories');
+        computed : {
+            IsValidPhone(){
+              return (this.NewUserPhone[0] == '0' && this.NewUserPhone[1] == '1');
+          },
         },
         methods:
             {
-                fetch(endpoint){
-                    axios.get(endpoint)
-                        .then(({data})=>{
-                            this.categories.push(...data.data)
-                        })
 
-                },
                 setChoosenCategory(category)
                 {
                     this.selectedCategory = category;
@@ -182,11 +232,11 @@
                 {
                     this.selectedProject = project;
                     this.currentSection = 3;
-
                 },
+
                 onImageChange(e){
-                    var files = e.target.files || e.dataTransfer.files;
-                    this.createImage(files[0]);//passing the image to be viewed before uploading
+                     this.files = e.target.files || e.dataTransfer.files;
+                    this.createImage(this.files[0]);//passing the image to be viewed before uploading
                 },
                 createImage(file)
                 {// preview image before uploading
@@ -204,16 +254,26 @@
                 },
                 CreateCampaign()
                 {
+                    let formData = new FormData();
 
-                    axios.post('/CreateNewCampaign', {
-                        'project' : this.selectedProject,
-                        'name' : this.CampaignName,
-                        'breif': this.CampaignBrief,
-                        'image' : this.CampaignImage,
-                    })
+                    formData.append('name', this.CampaignName);
+                    formData.append('description', this.CampaignBrief);
+                    formData.append('image', document.querySelector('#imageInput').files[0]);
+                    formData.append('project_id', this.selectedProject.id);
+                    if(this.AuthUser.id == null)
+                    {
+                        formData.append('NewUserName',this.NewUserName);
+                        formData.append('NewUserPhone',this.NewUserPhone);
+                        formData.append('email',this.NewUserEmail);
+                        formData.append('NewUserPassword',this.NewUserPassword);
+                    }
+                    axios.post('/CreateNewCampaign',formData)
                         .then(function (response) {
                             console.log(response);
                         })
+                        .catch(e => {
+                            this.errors = e.response.data.errors;
+                        });
                 }
             },
 

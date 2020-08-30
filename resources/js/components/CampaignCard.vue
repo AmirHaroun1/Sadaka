@@ -25,7 +25,7 @@
                         <span class="collected">
                             ج . م
 
-                        {{campaign.CollectedAmount}}
+                        {{getCollectedMoney()}}
                         </span>
                         /
 
@@ -64,10 +64,21 @@
         },
         methods :
             {
+
               show()
               {
                   return alert(this.CampaignPercentage.width)
-              }
+              },
+                getCollectedMoney()
+                {
+                    if(this.campaign.CollectedAmount == null)
+                    {
+                        return 0;
+                    }
+                    else {
+                        return  this.campaign.CollectedAmount;
+                    }
+                },
             },
 
     }

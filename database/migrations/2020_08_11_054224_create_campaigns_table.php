@@ -19,7 +19,7 @@ class CreateCampaignsTable extends Migration
             $table->string('name');
             $table->text('description');
 
-            $table->string('image');
+            $table->string('image')->nullable();
 
             $table->foreignId('creator_id');
             $table->foreign('creator_id')

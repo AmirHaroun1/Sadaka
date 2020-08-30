@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Campaign extends Model
 {
@@ -11,10 +12,9 @@ class Campaign extends Model
     protected $appends =['photo'];
     public function getPhotoAttribute()
     {
-        if(file_exists(public_path().'/storage'.$this->image))
+        if(file_exists(public_path().'/storage/'.$this->image))
         {
-
-            return asset('storage/'.$this->image);
+            return asset('/storage/'.$this->image);
         }
         else{
             return asset($this->image);

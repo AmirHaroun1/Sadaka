@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Campaign;
+use App\Category;
 use App\Http\CampaignFilter;
-use App\Project;
+use App\Http\Requests\CreateCampaignRequest;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class CampaignController extends Controller
 {
@@ -27,11 +30,39 @@ class CampaignController extends Controller
     }
     public function create()
     {
-        return view('Campaign._Create_Campaign');
+        $categories = Category::with('projects')->get();
+        return view('Campaign._Create_Campaign',compact('categories'));
     }
-    public  function store(Request $request,Project $project)
+    public  function store(CreateCampaignRequest $request)
     {
-        return $request;
-        return $project;
+        $creatorID = auth()->id();
+        if($request['NewUserName'])
+        {
+            $newUser = User::create([
+                'name' => $request['NewUserName'],
+                'phone' => $request['NewUserPhone'],
+                'email' => $request['NewUserEmail'],
+                'password' => Hash::make($request['NewUserPassword']),
+                ]);
+            $creatorID = $newUser->id;
+        }
+        $campaign = Campaign::create
+        ([
+            'creator_id'=>$creatorID
+            ,'name'=>$request['name']
+            ,'description'=>$request['description']
+            ,'project_id'=>$request['project_id']
+        ]);
+
+        if(request()->hasFile('image'))
+        {
+            $campaign->image = $request['image']->store('CampaignImages');
+        }
+        else{
+            $campaign->image = 'images/campaign/campaignPhoto.jpg';
+        }
+        $campaign->save();
+
+        return $campaign;
     }
 }
