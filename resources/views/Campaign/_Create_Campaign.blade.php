@@ -5,7 +5,8 @@
     <header class="main_menu home_menu menu_fixed animated fadeInDown" style="width: 100%;
     background-color: rgba(13,16,29,0.8);"/>
 
-    @endsection
+
+@endsection
 
 @section('content')
 <!-- feature_part start-->

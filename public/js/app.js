@@ -1960,12 +1960,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['campaign'],
+  props: {
+    'campaign': Object,
+    'DonationAmount': null
+  },
   data: function data() {
     return {
-      campaign: this.campaign,
       CampaignPercentage: {
         width: Object(lodash__WEBPACK_IMPORTED_MODULE_0__["ceil"])(this.campaign.CollectedAmount / this.campaign.project.objective * 100) + '%'
       }
@@ -38017,41 +38029,55 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _c("p", { staticClass: "font-weight-bold" }, [
-                _c("span", { staticClass: "collected" }, [
-                  _vm._v(
-                    "\n                        ج . م\n\n                    " +
-                      _vm._s(_vm.getCollectedMoney()) +
-                      "\n                    "
-                  )
-                ]),
-                _vm._v(
-                  "\n                    /\n\n                    " +
-                    _vm._s(_vm.campaign.project.objective) +
-                    "\n                    ج . م\n\n                "
-                )
-              ]),
-              _vm._v(" "),
-              _c("label", [
-                _vm._v(
-                  "\n                    عدد المتبرعين :\n                    " +
-                    _vm._s(_vm.campaign.donations_count) +
-                    "\n                "
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "progress my-3" }, [
-                _c("div", {
-                  staticClass: "progress-bar bg-success",
-                  style: _vm.CampaignPercentage,
-                  attrs: {
-                    role: "progressbar",
-                    "aria-valuenow": "25",
-                    "aria-valuemin": "0",
-                    "aria-valuemax": "100"
-                  }
-                })
-              ])
+              !this.DonationAmount
+                ? _c("div", [
+                    _c("p", { staticClass: "font-weight-bold" }, [
+                      _c("span", { staticClass: "collected" }, [
+                        _vm._v(
+                          "\n                        ج . م\n\n                    " +
+                            _vm._s(_vm.getCollectedMoney()) +
+                            "\n                    "
+                        )
+                      ]),
+                      _vm._v(
+                        "\n                        /\n\n                        " +
+                          _vm._s(_vm.campaign.project.objective) +
+                          "\n                        ج . م\n\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("label", [
+                      _vm._v(
+                        "\n                        عدد المتبرعين :\n                        " +
+                          _vm._s(_vm.campaign.donations_count) +
+                          "\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "progress my-3" }, [
+                      _c("div", {
+                        staticClass: "progress-bar bg-success",
+                        style: _vm.CampaignPercentage,
+                        attrs: {
+                          role: "progressbar",
+                          "aria-valuenow": "25",
+                          "aria-valuemin": "0",
+                          "aria-valuemax": "100"
+                        }
+                      })
+                    ])
+                  ])
+                : _c("div", [
+                    _c("span", { staticClass: "collected" }, [
+                      _vm._v(
+                        "\n                         قيمة التبرع :\n\n                    " +
+                          _vm._s(this.DonationAmount) +
+                          "\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("br")
+                  ])
             ])
           ]
         )
@@ -51182,6 +51208,9 @@ Vue.component('new-campaign-section', __webpack_require__(/*! ./components/Creat
 Vue.component('carousel', __webpack_require__(/*! vue-owl-carousel */ "./node_modules/vue-owl-carousel/dist/vue-owl-carousel.js"));
 var app = new Vue({
   el: '#app'
+});
+var app2 = new Vue({
+  el: '#app2'
 });
 
 /***/ }),

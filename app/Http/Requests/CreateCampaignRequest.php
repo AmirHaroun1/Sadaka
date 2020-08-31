@@ -23,12 +23,12 @@ class CreateCampaignRequest extends FormRequest
     public function messages()
     {
         return [
-            'NewUserName.required' => 'هذا الحقل مطلوب',
             'NewUserName.min' => 'الأسم يجب أن يكون 3 أحرف على الأقل',
             'NewUserName.max' => 'الأسم يجب أن يكون 255 حرف على الأكثر',
 
             'NewUserPhone.max' => 'رقم الهاتف يجب أن يكون 11 رقم',
             'NewUserPhone.min' => 'رقم الهاتف يجب أن يكون 11 رقم',
+
             'email.unique' => 'هذا البريد الألكنرونى مسجل بالفعل ',
 
             'NewUserPassword.min'=>'الرقم السري يجب أن يكون أكثر من 5 أحرف',

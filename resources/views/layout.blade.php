@@ -59,7 +59,7 @@
                                         <img height="30px" width="30px" class="rounded-circle" src="{{auth()->user()->photo}}">
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="team.html">profile</a>
+                                        <a class="dropdown-item" href="{{route('user.show')}}">profile</a>
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                            onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

@@ -29,8 +29,8 @@ Route::get('/CreateNewCampaign','CampaignController@create')->name('campaign.cre
 Route::post('/CreateNewCampaign','CampaignController@store')->name('campaign.store');
 /*
 |--------------------------------------------------------------------------
-| Project Routes
+| User Routes
 |--------------------------------------------------------------------------
 */
-Route::get('/Categories','CategoryController@index')->name('category.index');
+Route::get('/MyProfile','UserController@show')->name('user.show');
 

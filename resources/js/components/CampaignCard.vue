@@ -19,29 +19,39 @@
                     <a>
                         <h5 class="card-title ">{{campaign.name}}</h5>
                     </a>
+                    <div v-if="!this.DonationAmount">
 
-                    <p class="font-weight-bold">
+                        <p class="font-weight-bold">
 
                         <span class="collected">
                             ج . م
 
                         {{getCollectedMoney()}}
                         </span>
-                        /
+                            /
 
-                        {{campaign.project.objective}}
-                        ج . م
+                            {{campaign.project.objective}}
+                            ج . م
 
-                    </p>
-                    <label>
-                        عدد المتبرعين :
-                        {{campaign.donations_count}}
-                    </label>
-                    <div class="progress my-3">
+                        </p>
+                        <label>
+                            عدد المتبرعين :
+                            {{campaign.donations_count}}
+                        </label>
+                        <div class="progress my-3">
 
-                        <div class="progress-bar bg-success" role="progressbar" :style="CampaignPercentage" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar bg-success" role="progressbar" :style="CampaignPercentage" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+
                     </div>
+                    <div v-else>
+                        <span class="collected">
+                             قيمة التبرع :
 
+                        {{this.DonationAmount}}
+                        </span>
+                        <br>
+                    </div>
                 </div>
             </div>
         </div>
@@ -52,11 +62,12 @@
     import {ceil} from "lodash";
 
     export default {
-        props : ['campaign'],
+        props : {
+            'campaign':Object,
+            'DonationAmount':null,
+        },
         data()  {
             return{
-                campaign : this.campaign,
-
                 CampaignPercentage :{
                     width:  ceil((this.campaign.CollectedAmount / this.campaign.project.objective) *100)+'%',
                 }

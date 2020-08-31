@@ -8,6 +8,7 @@ use App\Http\CampaignFilter;
 use App\Http\Requests\CreateCampaignRequest;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class CampaignController extends Controller
@@ -35,20 +36,20 @@ class CampaignController extends Controller
     }
     public  function store(CreateCampaignRequest $request)
     {
-        $creatorID = auth()->id();
         if($request['NewUserName'])
         {
             $newUser = User::create([
                 'name' => $request['NewUserName'],
                 'phone' => $request['NewUserPhone'],
-                'email' => $request['NewUserEmail'],
+                'email' => $request['email'],
                 'password' => Hash::make($request['NewUserPassword']),
                 ]);
-            $creatorID = $newUser->id;
+            Auth::login($newUser);
+
         }
         $campaign = Campaign::create
         ([
-            'creator_id'=>$creatorID
+            'creator_id'=>auth()->id()
             ,'name'=>$request['name']
             ,'description'=>$request['description']
             ,'project_id'=>$request['project_id']

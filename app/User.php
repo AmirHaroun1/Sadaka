@@ -25,10 +25,9 @@ class User extends Authenticatable
 
     public function getPhotoAttribute()
     {
-        if(file_exists(public_path().'/storage'.$this->image))
+        if(file_exists(public_path().'/storage/'.$this->image))
         {
-
-            return asset('storage/'.$this->image);
+            return asset('/storage/'.$this->image);
         }
         else{
             return asset($this->image);
@@ -36,12 +35,13 @@ class User extends Authenticatable
     }
     public function campaigns()
     {
-        return $this->hasMany('App\Campaign','creator_id');
+        return $this->hasMany('App\Campaign','creator_id')->WithCollectedAmount()
+            ;
     }
 
     public function donations()
     {
-        return $this->belongsToMany('App\Campaign')->using('App\Donation');
+        return $this->belongsToMany('App\Campaign')->using('App\Donation')->withPivot('amount','created_at');
     }
 
 }
