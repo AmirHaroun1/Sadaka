@@ -62,7 +62,7 @@
                 </div>
             </div>
             <div class="row">
-                @forelse($user->campaigns as $campaign)
+                @forelse($myCampaigns as $campaign)
                     <campaign-card :campaign="{{$campaign}}" :key="{{$campaign->id}}" ></campaign-card>
                     @empty
                     <div class="col-md-12 text-center">
@@ -84,7 +84,7 @@
                 </div>
             </div>
             <div class="row">
-                @forelse($user->donations as $campaign)
+                @forelse($myDonations as $campaign)
                     <campaign-card :campaign="{{$campaign}}" :key="{{$campaign->id}}" :donation-amount="{{$campaign->pivot->amount}}" ></campaign-card>
                     @empty
                     <div class="col-md-12 text-center">
