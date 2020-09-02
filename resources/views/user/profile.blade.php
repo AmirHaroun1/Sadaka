@@ -22,7 +22,7 @@
             <div class="row">
 
                 <div class="col-md-4 text-white">
-                    <a class="btn_1 font-weight-bold green" href="{{'#'}}">تعديل بيانات الحساب</a>
+                    <a class="btn_1 font-weight-bold green" href="{{route('user.edit')}}">تعديل بيانات الحساب</a>
                 </div>
 
                 <div class="col-md-6 pt-5 ">
@@ -51,7 +51,7 @@
             </div>
         </div>
     </section>
-    <!-- Personal Info start-->
+    <!-- Personal Info End-->
     <!-- My Created Campaigns start-->
     <section id="app" class="CreatedCampaigns pb-5" style="background-color: #FBF8F6">
         <div class="container pt-5">
@@ -69,7 +69,7 @@
                         <p>لا توجد حملات</p>
                         <a class="btn_2 green text-center" href="http://sadaka/CreateNewCampaign">ابدأ حملة تبرع</a>
                     </div>
-                    @endforelse
+                @endforelse
             </div>
         </div>
     </section>

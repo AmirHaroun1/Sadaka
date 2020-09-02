@@ -50,6 +50,10 @@
 
                         {{this.DonationAmount}}
                         </span>
+                        <p>
+                            تاريخ التبرع :
+                            {{this.DonationDate}}
+                        </p>
                         <br>
                     </div>
                 </div>
@@ -60,7 +64,7 @@
 
 <script>
     import {ceil} from "lodash";
-
+    var moment = require('moment');
     export default {
         props : {
             'campaign':Object,
@@ -73,9 +77,9 @@
                 }
             }
         },
+
         methods :
             {
-
               show()
               {
                   return alert(this.CampaignPercentage.width)
@@ -91,6 +95,10 @@
                     }
                 },
             },
-
+        computed: {
+            DonationDate() {
+                return moment(this.campaign.pivot.created_at).format('D / M / Y')
+            }
+        },
     }
 </script>

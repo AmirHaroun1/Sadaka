@@ -33,4 +33,6 @@ Route::post('/CreateNewCampaign','CampaignController@store')->name('campaign.sto
 |--------------------------------------------------------------------------
 */
 Route::get('/MyProfile','UserController@show')->name('user.show');
+Route::get('/MyProfile/edit','UserController@edit')->name('user.edit');
+Route::patch('/MyProfile/update','UserController@update')->name('user.update');
 

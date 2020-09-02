@@ -24,6 +24,9 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "dayjs": "^1.8.34",
+        "moment": "^2.27.0",
+        "relative-time-vue-component": "^4.6.1",
         "vue-owl-carousel": "^2.0.3"
     }
 }
