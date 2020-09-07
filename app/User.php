@@ -27,7 +27,7 @@ class User extends Authenticatable
     {
         if(file_exists(public_path().'/storage/'.$this->image))
         {
-            return asset('/storage/'.$this->image);
+            return asset('storage/'.$this->image);
         }
         else{
             return asset($this->image);

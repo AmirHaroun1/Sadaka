@@ -1,5 +1,5 @@
 <template>
-    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 mt-2">
+    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3">
         <div class="single-home-passion text-center">
 
             <div @click="show()"  class="card" style="cursor: pointer">

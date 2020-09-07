@@ -25,7 +25,7 @@ Route::get('/', 'HomeController@index')->name('home');
 */
 Route::get('/Campaigns','CampaignController@index')->name('campaign.index');
 Route::get('/search/Campaigns/{name}','CampaignController@search')->name('campaign.search');
-Route::get('/CreateNewCampaign','CampaignController@create')->name('campaign.create');
+Route::get('/CreateNewCampaign/{project:name?}/{section?}','CampaignController@create')->name('campaign.create');
 Route::post('/CreateNewCampaign','CampaignController@store')->name('campaign.store');
 /*
 |--------------------------------------------------------------------------
@@ -35,4 +35,9 @@ Route::post('/CreateNewCampaign','CampaignController@store')->name('campaign.sto
 Route::get('/MyProfile','UserController@show')->name('user.show');
 Route::get('/MyProfile/edit','UserController@edit')->name('user.edit');
 Route::patch('/MyProfile/update','UserController@update')->name('user.update');
-
+/*
+|--------------------------------------------------------------------------
+| Charity Routes
+|--------------------------------------------------------------------------
+*/
+Route::get('/Charity/{name}','CharityController@show')->name('charity.show');

@@ -8,7 +8,6 @@ class Project extends Model
 {
     //
     protected $guarded = [];
-
     public function category()
     {
         return $this->belongsTo('App\Category');
@@ -16,6 +15,10 @@ class Project extends Model
     public function campaigns()
     {
         return $this->hasMany('App\Campaign');
+    }
+    public function getImageAttribute()
+    {
+        return asset($this->attributes['image']);
     }
     public function scopeTotalStats($query)
     {

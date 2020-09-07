@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EditProfileRequest;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -26,9 +28,34 @@ class UserController extends Controller
     {
        return  view('user.edit');
     }
-    public function update()
+    public function update(EditProfileRequest $request)
     {
-        return "i'll update later";
+        $user = auth()->user();
+
+        if($request->has('password'))
+        {
+            $user->update([
+                'password' => Hash::make($request['password']),
+            ]);
+            return redirect()->back()->with('Edited-Successfully', 'قد تم تعديل كلمة السر بنجاح');
+        }
+
+        if ($request->hasFile('image'))
+        {
+            if(file_exists(public_path().'/storage/'.$user->image)) {
+                unlink('storage/'.$user->image);
+            }
+              $request->image = request('image')->store('userImages');
+        }
+        else{
+            $request->image = $user->image;
+        }
+        $user->update([
+            'name' =>$request->name,
+            'phone' =>$request->phone,
+            'image'=>$request->image,
+        ]);
+        return redirect()->back()->with('Edited-Successfully', 'قد تم تعديل البيانات بنجاح');
     }
 
 }

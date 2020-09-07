@@ -6,6 +6,7 @@ use App\Campaign;
 use App\Category;
 use App\Http\CampaignFilter;
 use App\Http\Requests\CreateCampaignRequest;
+use App\Project;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,18 +30,18 @@ class CampaignController extends Controller
             ->withCount('donations')
             ->paginate();
     }
-    public function create()
+    public function create(Project $project =null , $section = 1)
     {
         $categories = Category::with('projects')->get();
-        return view('Campaign._Create_Campaign',compact('categories'));
+        return view('Campaign._Create_Campaign',compact('categories','project','section'));
     }
     public  function store(CreateCampaignRequest $request)
     {
-        if($request['NewUserName'])
+        if($request->has('NewUser'))
         {
             $newUser = User::create([
-                'name' => $request['NewUserName'],
-                'phone' => $request['NewUserPhone'],
+                'name' => $request['name'],
+                'phone' => $request['phone'],
                 'email' => $request['email'],
                 'password' => Hash::make($request['NewUserPassword']),
                 ]);
@@ -54,7 +55,6 @@ class CampaignController extends Controller
             ,'description'=>$request['description']
             ,'project_id'=>$request['project_id']
         ]);
-
         if(request()->hasFile('image'))
         {
             $campaign->image = $request['image']->store('CampaignImages');

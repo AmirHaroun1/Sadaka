@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Remember Them</title>
-    <link rel="icon" href="img/favicon.png">
+    <link rel="icon" href="{{asset('img/favicon.png')}}">
     <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@600&display=swap" rel="stylesheet">
 
     <!-- Bootstrap CSS -->
@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="{{asset('css/slick.css')}}">
     <!-- style CSS -->
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
+
 
 </head>
 
@@ -82,14 +83,16 @@
                             @endauth
 
                             <li class="nav-item">
-                                <a class="nav-link" href="#">كيف نعمل</a>
+                                <a  class="nav-link  scroll"  href="/#HowItWorksSection">كيف نعمل</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">اكتشف & تبرع</a>
+                                <a  class="nav-link  scroll"  href="/#Charities">الجمعيات الخيرية</a>
                             </li>
-                            <li class="d-none d-lg-block">
-                                <a class="btn_1 green" href="{{route('campaign.create')}}" style="background-color:  #00c424 ; font-size: 16px">ابدأ حملة تبرع</a>
+                            <li class="nav-item">
+                                <a  class="nav-link  scroll" href="/#FeaturedCampaignsSection">اكتشف & تبرع</a>
                             </li>
+                            <li class=" nav-item">
+                                <a class="btn_1 green" href="#" style="background-color:  #00c424 ; font-size: 16px;color: white">ابدأ حملة تبرع</a>                            </li>
                         </ul>
                     </div>
 
@@ -175,7 +178,26 @@
 <script src="{{asset('js/jquery.validate.min.js')}}"></script>
 <script src="{{asset('js/mail-script.js')}}"></script>
 <script src="{{asset('js/contact.js')}}"></script>
+<script type="text/javascript">
+    $(function(){
+//your current click function
+        $('.nav-link').on('click',function(e){
+            e.preventDefault();
+            $('html,body').animate({
+                scrollTop:$($(this).attr('href')).offset().top + 'px'
+            },1000,'swing');
+        });
 
+// if we have anchor on the url (calling from other page)
+        if(window.location.hash){
+            // smooth scroll to the anchor id
+            $('html,body').animate({
+                scrollTop:$(window.location.hash).offset().top + 'px'
+            },1000,'swing');
+        }
+    });
+
+</script>
 
 <!-- custom js -->
 <script src="{{asset('js/custom.js')}}"></script>

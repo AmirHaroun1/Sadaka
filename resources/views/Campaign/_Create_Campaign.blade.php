@@ -10,9 +10,9 @@
 
 @section('content')
 <!-- feature_part start-->
-<section id="app" class="CreateCampaign section_padding">
+<section id="app" class="CreateCampaign" style="padding-top: 150px;padding-bottom: 120px">
 
-    <new-campaign-section :auth-user="{{auth()->user() ? auth()->user():'{}' }}" :categories="{{$categories}}" ></new-campaign-section>
+    <new-campaign-section :auth-user="{{auth()->user() ? auth()->user():'{}' }}" :categories="{{$categories}}" :wanted-Project="{{$project ? $project:'{}'}}" :Selected-Section="{{$section}}" ></new-campaign-section>
 
 </section>
 <!-- feature_part start-->

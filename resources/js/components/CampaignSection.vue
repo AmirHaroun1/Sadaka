@@ -1,6 +1,6 @@
 <template>
 <!--::Campaign part start::-->
-<section class="passion_part section_padding">
+<section class="passion_part section_padding" >
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
@@ -19,21 +19,16 @@
                 </div>
             </div>
 
-            <div class="col-lg-4">
+            <div class="col-lg-4 ">
                 <div class="section_tittle float-right">
                     <h2>تبرع لحملات قائمة</h2>
                 </div>
             </div>
         </div>
-        <div class="row text-center" style="margin-top: -90px">
-
-
+        <div class="row text-center " style="padding-top:-20px" >
             <campaign-card v-show="searchedCampaigns.length == 0" v-for="campaign in Campaigns" :campaign="campaign" :key="campaign.id" ></campaign-card>
 
             <campaign-card v-show="searchedCampaigns.length !==0" v-for="campaign in searchedCampaigns" :campaign="campaign" :key="campaign.id" ></campaign-card>
-
-
-
 
             <div class="form-group col-md-12 justify-content-center">
                 <button v-if="NextUrl && searchedCampaigns.length == 0" @click="fetch(NextUrl)" class="btn btn-outline-info btn_1" style="cursor:pointer">عرض المزيد من الحملات</button>

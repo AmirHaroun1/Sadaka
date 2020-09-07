@@ -33,7 +33,15 @@
         <div v-else-if="currentSection === 2" id="chooseCampaign" class="container mt-3">
             <div class="row">
                 <div class="col-md-12">
+
                     <h2 class="header float-right"> أختر نوع الحملة لتوجه تبرعات إليه</h2>
+                </div>
+                <div class="col-md-12">
+                    <a  @click="currentSection = 1" class="btn btn-lg btn-outline-info btn_1 mt-3 float-right" style="cursor:pointer">
+                        السابقة
+                        <i class="fa fa-arrow-right"></i>
+                    </a>
+
                 </div>
             </div>
             <div class="row">
@@ -62,10 +70,6 @@
                 </div>
             </div>
 
-            <a  @click="currentSection = 1" class="btn btn-lg btn-outline-info btn_1 mt-3 float-right" style="cursor:pointer">
-                السابقة
-                <i class="fa fa-arrow-right"></i>
-            </a>
 
         </div>
 
@@ -87,7 +91,7 @@
                                     {{selectedProject.charity}}
                         </span>
                         <br>
-                        <a  @click="currentSection = 2" class="btn btn-lg btn-outline-info btn_1 mt-1 float-right" style="cursor:pointer">
+                        <a  @click="wantedProject ? currentSection = 1:currentSection = 2" class="btn btn-lg btn-outline-info btn_1 mt-1 float-right" style="cursor:pointer">
                             السابقة
                             <i class="fa fa-arrow-right"></i>
                         </a>
@@ -104,11 +108,13 @@
                     </div>
 
                     <div class="col-md-4 text-center">
-                        <img height = "160px" :src="this.CampaignImage">
+                        <img v-if="this.CampaignImage" height = "160px" :src="this.CampaignImage">
                         <br>
                         <input @change="onImageChange" name="CampaignImage" style="display: none" ref="image-ref" id="imageInput"  type="file">
                         <br>
-                        <button @click="uploadImage" class="btn btn-outline-info btn_1" style="cursor: pointer;">أختر صورة</button>
+                        <button v-if="!this.CampaignImage" @click="uploadImage" class="btn btn-outline-info btn_1" style="cursor: pointer;">أختر صورة</button>
+                        <a v-else @click="CampaignImage = null" class="btn btn-outline-info btn_4 mt-4 p-2" style="cursor: pointer;background-color: red;color: white">حذف</a>
+
                     </div>
 
                     <div class="col-md-8  mt-2 mb-5 form-group">
@@ -179,7 +185,7 @@
                     </div>
 
                 </div>
-                <button :disabled="!IsValidPhone" type="submit"  class="btn_1 green text-white" style="background-color:  #00c424 ; font-size: 16px;cursor:pointer">أنشئ حملة تبرعات</button>
+                <button type="submit"  class="btn_1 green text-white" style="background-color:  #00c424 ; font-size: 16px;cursor:pointer">أنشئ حملة تبرعات</button>
             </form>
         </div>
 
@@ -191,6 +197,9 @@
         props : {
             'AuthUser' : Object,
             'categories' : Array,
+            // in case if the user is redirected from charity page and clicked on a certain project
+            'wantedProject' : [Object,null],
+            'selectedSection': Number,
         },
         data()
         {
@@ -202,7 +211,7 @@
                 selectedProject:null,
                 currentSection : 1,
 
-                CampaignImage:'images/campaign/campaignPhoto.jpg',
+                CampaignImage: null,
 
                 // in case user isn't auth
 
@@ -218,6 +227,14 @@
             IsValidPhone(){
               return (this.NewUserPhone[0] == '0' && this.NewUserPhone[1] == '1');
           },
+        },
+        // in case if the user is redirected from charity page and clicked on a certain project
+        // we should assign the project that the user choose from the charity page to the selected project and move the current section to the third
+        mounted() {
+
+            this.selectedProject = this.wantedProject;
+            this.currentSection = this.selectedSection;
+
         },
         methods:
             {
@@ -262,16 +279,18 @@
                     formData.append('project_id', this.selectedProject.id);
                     if(this.AuthUser.id == null)
                     {
-                        formData.append('NewUserName',this.NewUserName);
-                        formData.append('NewUserPhone',this.NewUserPhone);
+                        formData.append('NewUser',true);
+                        formData.append('name',this.NewUserName);
+                        formData.append('phone',this.NewUserPhone);
                         formData.append('email',this.NewUserEmail);
-                        formData.append('NewUserPassword',this.NewUserPassword);
+                        formData.append('password',this.NewUserPassword);
                     }
                     axios.post('/CreateNewCampaign',formData)
                         .then(function (response) {
                             console.log(response);
                         })
                         .catch(e => {
+                            console.log(e);
                             this.errors = e.response.data.errors;
                         });
                 }

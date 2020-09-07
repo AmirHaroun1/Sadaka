@@ -2073,11 +2073,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2318,10 +2313,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     'AuthUser': Object,
-    'categories': Array
+    'categories': Array,
+    // in case if the user is redirected from charity page and clicked on a certain project
+    'wantedProject': [Object, null],
+    'selectedSection': Number
   },
   data: function data() {
     return {
@@ -2331,7 +2335,7 @@ __webpack_require__.r(__webpack_exports__);
       selectedCategory: null,
       selectedProject: null,
       currentSection: 1,
-      CampaignImage: 'images/campaign/campaignPhoto.jpg',
+      CampaignImage: null,
       // in case user isn't auth
       NewUserName: '',
       NewUserEmail: '',
@@ -2344,6 +2348,12 @@ __webpack_require__.r(__webpack_exports__);
     IsValidPhone: function IsValidPhone() {
       return this.NewUserPhone[0] == '0' && this.NewUserPhone[1] == '1';
     }
+  },
+  // in case if the user is redirected from charity page and clicked on a certain project
+  // we should assign the project that the user choose from the charity page to the selected project and move the current section to the third
+  mounted: function mounted() {
+    this.selectedProject = this.wantedProject;
+    this.currentSection = this.selectedSection;
   },
   methods: {
     setChoosenCategory: function setChoosenCategory(category) {
@@ -2385,17 +2395,74 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('project_id', this.selectedProject.id);
 
       if (this.AuthUser.id == null) {
-        formData.append('NewUserName', this.NewUserName);
-        formData.append('NewUserPhone', this.NewUserPhone);
+        formData.append('NewUser', true);
+        formData.append('name', this.NewUserName);
+        formData.append('phone', this.NewUserPhone);
         formData.append('email', this.NewUserEmail);
-        formData.append('NewUserPassword', this.NewUserPassword);
+        formData.append('password', this.NewUserPassword);
       }
 
       axios.post('/CreateNewCampaign', formData).then(function (response) {
         console.log(response);
       })["catch"](function (e) {
+        console.log(e);
         _this2.errors = e.response.data.errors;
       });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/user/EditProfile.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/user/EditProfile.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    'user': Object
+  },
+  data: function data() {
+    return {
+      ProfileImage: null,
+      phone: this.user.phone,
+      password: '',
+      password_confirmation: ''
+    };
+  },
+  methods: {
+    onImageChange: function onImageChange(e) {
+      this.files = e.target.files || e.dataTransfer.files;
+      this.createImage(this.files[0]); //passing the image to be viewed before uploading
+    },
+    createImage: function createImage(file) {
+      var _this = this;
+
+      // preview image before uploading
+      var image = new Image();
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        _this.ProfileImage = e.target.result;
+      };
+
+      reader.readAsDataURL(file);
+    },
+    uploadImage: function uploadImage() {
+      this.$refs["image-ref"].click();
+    }
+  },
+  computed: {
+    IsValidPhone: function IsValidPhone() {
+      return this.phone[0] == '0' && this.phone[1] == '1' && this.phone.length == 11;
+    },
+    IsValidPassword: function IsValidPassword() {
+      return this.password == this.password_confirmation;
     }
   }
 });
@@ -59176,126 +59243,122 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "col-sm-6 col-md-3 col-lg-3 col-xl-3 mt-2" },
-    [
-      _c("div", { staticClass: "single-home-passion text-center" }, [
-        _c(
-          "div",
-          {
-            staticClass: "card",
-            staticStyle: { cursor: "pointer" },
-            on: {
-              click: function($event) {
-                return _vm.show()
-              }
+  return _c("div", { staticClass: "col-sm-6 col-md-3 col-lg-3 col-xl-3" }, [
+    _c("div", { staticClass: "single-home-passion text-center" }, [
+      _c(
+        "div",
+        {
+          staticClass: "card",
+          staticStyle: { cursor: "pointer" },
+          on: {
+            click: function($event) {
+              return _vm.show()
             }
-          },
-          [
-            _c("img", {
-              staticClass: " card-img-top img-responsive",
-              attrs: {
-                width: "100%",
-                height: "150px",
-                src: _vm.campaign.photo,
-                alt: "CampaignImage"
-              }
-            }),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _c(
-                "div",
-                { staticClass: "row mb-3", attrs: { id: "projectInfo" } },
-                [
-                  _c("div", { staticClass: "col-md-4" }, [
-                    _c("img", {
-                      staticClass: "img-responsive",
-                      attrs: {
-                        height: "50px",
-                        width: "50px",
-                        src: _vm.campaign.project.image
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-8" }, [
-                    _c("h6", { staticClass: "greenText" }, [
-                      _vm._v(_vm._s(_vm.campaign.project.name))
-                    ])
+          }
+        },
+        [
+          _c("img", {
+            staticClass: " card-img-top img-responsive",
+            attrs: {
+              width: "100%",
+              height: "150px",
+              src: _vm.campaign.photo,
+              alt: "CampaignImage"
+            }
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c(
+              "div",
+              { staticClass: "row mb-3", attrs: { id: "projectInfo" } },
+              [
+                _c("div", { staticClass: "col-md-4" }, [
+                  _c("img", {
+                    staticClass: "img-responsive",
+                    attrs: {
+                      height: "50px",
+                      width: "50px",
+                      src: _vm.campaign.project.image
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-8" }, [
+                  _c("h6", { staticClass: "greenText" }, [
+                    _vm._v(_vm._s(_vm.campaign.project.name))
                   ])
-                ]
-              ),
-              _vm._v(" "),
-              _c("a", [
-                _c("h5", { staticClass: "card-title " }, [
-                  _vm._v(_vm._s(_vm.campaign.name))
                 ])
-              ]),
-              _vm._v(" "),
-              !this.DonationAmount
-                ? _c("div", [
-                    _c("p", { staticClass: "font-weight-bold" }, [
-                      _c("span", { staticClass: "collected" }, [
-                        _vm._v(
-                          "\n                        ج . م\n\n                    " +
-                            _vm._s(_vm.getCollectedMoney()) +
-                            "\n                    "
-                        )
-                      ]),
-                      _vm._v(
-                        "\n                        /\n\n                        " +
-                          _vm._s(_vm.campaign.project.objective) +
-                          "\n                        ج . م\n\n                    "
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("label", [
-                      _vm._v(
-                        "\n                        عدد المتبرعين :\n                        " +
-                          _vm._s(_vm.campaign.donations_count) +
-                          "\n                    "
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "progress my-3" }, [
-                      _c("div", {
-                        staticClass: "progress-bar bg-success",
-                        style: _vm.CampaignPercentage,
-                        attrs: {
-                          role: "progressbar",
-                          "aria-valuenow": "25",
-                          "aria-valuemin": "0",
-                          "aria-valuemax": "100"
-                        }
-                      })
-                    ])
-                  ])
-                : _c("div", [
+              ]
+            ),
+            _vm._v(" "),
+            _c("a", [
+              _c("h5", { staticClass: "card-title " }, [
+                _vm._v(_vm._s(_vm.campaign.name))
+              ])
+            ]),
+            _vm._v(" "),
+            !this.DonationAmount
+              ? _c("div", [
+                  _c("p", { staticClass: "font-weight-bold" }, [
                     _c("span", { staticClass: "collected" }, [
                       _vm._v(
-                        "\n                         قيمة التبرع :\n\n                    " +
-                          _vm._s(this.DonationAmount) +
+                        "\n                        ج . م\n\n                    " +
+                          _vm._s(_vm.getCollectedMoney()) +
                           "\n                    "
                       )
                     ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "\n                        تاريخ التبرع :\n                        " +
-                          _vm._s(this.DonationDate) +
-                          "\n                    "
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("br")
+                    _vm._v(
+                      "\n                        /\n\n                        " +
+                        _vm._s(_vm.campaign.project.objective) +
+                        "\n                        ج . م\n\n                    "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("label", [
+                    _vm._v(
+                      "\n                        عدد المتبرعين :\n                        " +
+                        _vm._s(_vm.campaign.donations_count) +
+                        "\n                    "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "progress my-3" }, [
+                    _c("div", {
+                      staticClass: "progress-bar bg-success",
+                      style: _vm.CampaignPercentage,
+                      attrs: {
+                        role: "progressbar",
+                        "aria-valuenow": "25",
+                        "aria-valuemin": "0",
+                        "aria-valuemax": "100"
+                      }
+                    })
                   ])
-            ])
-          ]
-        )
-      ])
-    ]
-  )
+                ])
+              : _c("div", [
+                  _c("span", { staticClass: "collected" }, [
+                    _vm._v(
+                      "\n                         قيمة التبرع :\n\n                    " +
+                        _vm._s(this.DonationAmount) +
+                        "\n                    "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("p", [
+                    _vm._v(
+                      "\n                        تاريخ التبرع :\n                        " +
+                        _vm._s(this.DonationDate) +
+                        "\n                    "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("br")
+                ])
+          ])
+        ]
+      )
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -59420,8 +59483,8 @@ var render = function() {
       _c(
         "div",
         {
-          staticClass: "row text-center",
-          staticStyle: { "margin-top": "-90px" }
+          staticClass: "row text-center ",
+          staticStyle: { "padding-top": "-20px" }
         },
         [
           _vm._l(_vm.Campaigns, function(campaign) {
@@ -59486,7 +59549,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-lg-4" }, [
+    return _c("div", { staticClass: "col-lg-4 " }, [
       _c("div", { staticClass: "section_tittle float-right" }, [
         _c("h2", [_vm._v("تبرع لحملات قائمة")])
       ])
@@ -59602,7 +59665,29 @@ var render = function() {
         "div",
         { staticClass: "container mt-3", attrs: { id: "chooseCampaign" } },
         [
-          _vm._m(1),
+          _c("div", { staticClass: "row" }, [
+            _vm._m(1),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-12" }, [
+              _c(
+                "a",
+                {
+                  staticClass:
+                    "btn btn-lg btn-outline-info btn_1 mt-3 float-right",
+                  staticStyle: { cursor: "pointer" },
+                  on: {
+                    click: function($event) {
+                      _vm.currentSection = 1
+                    }
+                  }
+                },
+                [
+                  _vm._v("\n                السابقة\n                "),
+                  _c("i", { staticClass: "fa fa-arrow-right" })
+                ]
+              )
+            ])
+          ]),
           _vm._v(" "),
           _c(
             "div",
@@ -59678,23 +59763,6 @@ var render = function() {
               )
             }),
             0
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-lg btn-outline-info btn_1 mt-3 float-right",
-              staticStyle: { cursor: "pointer" },
-              on: {
-                click: function($event) {
-                  _vm.currentSection = 1
-                }
-              }
-            },
-            [
-              _vm._v("\n        السابقة\n        "),
-              _c("i", { staticClass: "fa fa-arrow-right" })
-            ]
           )
         ]
       )
@@ -59750,7 +59818,9 @@ var render = function() {
                     staticStyle: { cursor: "pointer" },
                     on: {
                       click: function($event) {
-                        _vm.currentSection = 2
+                        _vm.wantedProject
+                          ? (_vm.currentSection = 1)
+                          : (_vm.currentSection = 2)
                       }
                     }
                   },
@@ -59786,9 +59856,11 @@ var render = function() {
                   _vm._m(2),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-4 text-center" }, [
-                    _c("img", {
-                      attrs: { height: "160px", src: this.CampaignImage }
-                    }),
+                    this.CampaignImage
+                      ? _c("img", {
+                          attrs: { height: "160px", src: this.CampaignImage }
+                        })
+                      : _vm._e(),
                     _vm._v(" "),
                     _c("br"),
                     _vm._v(" "),
@@ -59805,15 +59877,33 @@ var render = function() {
                     _vm._v(" "),
                     _c("br"),
                     _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-outline-info btn_1",
-                        staticStyle: { cursor: "pointer" },
-                        on: { click: _vm.uploadImage }
-                      },
-                      [_vm._v("أختر صورة")]
-                    )
+                    !this.CampaignImage
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-outline-info btn_1",
+                            staticStyle: { cursor: "pointer" },
+                            on: { click: _vm.uploadImage }
+                          },
+                          [_vm._v("أختر صورة")]
+                        )
+                      : _c(
+                          "a",
+                          {
+                            staticClass: "btn btn-outline-info btn_4 mt-4 p-2",
+                            staticStyle: {
+                              cursor: "pointer",
+                              "background-color": "red",
+                              color: "white"
+                            },
+                            on: {
+                              click: function($event) {
+                                _vm.CampaignImage = null
+                              }
+                            }
+                          },
+                          [_vm._v("حذف")]
+                        )
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-8  mt-2 mb-5 form-group" }, [
@@ -60129,7 +60219,7 @@ var render = function() {
                     "font-size": "16px",
                     cursor: "pointer"
                   },
-                  attrs: { disabled: !_vm.IsValidPhone, type: "submit" }
+                  attrs: { type: "submit" }
                 },
                 [_vm._v("أنشئ حملة تبرعات")]
               )
@@ -60154,11 +60244,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-12" }, [
-        _c("h2", { staticClass: "header float-right" }, [
-          _vm._v(" أختر نوع الحملة لتوجه تبرعات إليه")
-        ])
+    return _c("div", { staticClass: "col-md-12" }, [
+      _c("h2", { staticClass: "header float-right" }, [
+        _vm._v(" أختر نوع الحملة لتوجه تبرعات إليه")
       ])
     ])
   },
@@ -72417,6 +72505,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 Vue.component('campaign-card', __webpack_require__(/*! ./components/CampaignCard.vue */ "./resources/js/components/CampaignCard.vue")["default"]);
 Vue.component('campaign-section', __webpack_require__(/*! ./components/CampaignSection.vue */ "./resources/js/components/CampaignSection.vue")["default"]);
 Vue.component('new-campaign-section', __webpack_require__(/*! ./components/CreateCampaign/CreateNewCampaign.vue */ "./resources/js/components/CreateCampaign/CreateNewCampaign.vue")["default"]);
+Vue.component('edit-profile', __webpack_require__(/*! ./components/user/EditProfile.vue */ "./resources/js/components/user/EditProfile.vue")["default"]);
 Vue.component('carousel', __webpack_require__(/*! vue-owl-carousel */ "./node_modules/vue-owl-carousel/dist/vue-owl-carousel.js"));
 var app = new Vue({
   el: '#app'
@@ -72676,6 +72765,56 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateNewCampaign_vue_vue_type_template_id_9f157248___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/components/user/EditProfile.vue":
+/*!******************************************************!*\
+  !*** ./resources/js/components/user/EditProfile.vue ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _EditProfile_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EditProfile.vue?vue&type=script&lang=js& */ "./resources/js/components/user/EditProfile.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  _EditProfile_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/user/EditProfile.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/user/EditProfile.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/user/EditProfile.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditProfile_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./EditProfile.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/user/EditProfile.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditProfile_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
