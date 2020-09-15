@@ -44,17 +44,6 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-4 col-sm-12 text-center">
-                                        <img v-if="ProfileImage" height = "120px" :src="ProfileImage">
-                                        <img v-else height = "120px" src="{{auth()->user()->photo}}">
-                                            <br>
-                                        <input @change="onImageChange" type="file" name="image" style="display: none" ref="image-ref" id="imageInput" >
-                                        <a @click="uploadImage" class="btn btn-outline-info btn_1 mt-4" style="cursor: pointer;">أختر صورة</a>
-                                        <a v-if="ProfileImage" @click="ProfileImage = null" class="btn btn-outline-info btn_4 mt-4" style="cursor: pointer;background-color: red;color: white">حذف</a>
-                                        @error('profileImage')
-                                        <div class="error text-danger text-center mt-2">{{ $message }}</div>
-                                        @enderror
-                                    </div>
                                     <div class="col-md-6 col-sm-12 offset-md-2 mb-4">
                                         <label class="float-right">
                                             رقم الهاتف
@@ -75,6 +64,18 @@
                                         <div class="error text-danger float-right">{{ $message }}</div>
                                         @enderror
                                     </div>
+
+                                    <div class="col-md-4 col-sm-12 text-center">
+                                        <img v-if="ProfileImage" height = "120px" :src="ProfileImage">
+                                        <img v-else height = "120px" src="{{auth()->user()->photo}}">
+                                            <br>
+                                        <input @change="onImageChange" type="file" name="image" style="display: none" ref="image-ref" id="imageInput" >
+                                        <a @click="uploadImage" class="btn btn-outline-info btn_1 mt-4" style="cursor: pointer;">أختر صورة</a>
+                                        <a v-if="ProfileImage" @click="ProfileImage = null" class="btn btn-outline-info btn_4 mt-4" style="cursor: pointer;background-color: red;color: white">حذف</a>
+                                        @error('profileImage')
+                                        <div class="error text-danger text-center mt-2">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12 offset-md-6 mb-4 ">
@@ -87,7 +88,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12 offset-md-6 text-center">
-                                        <button type="submit" class="btn_1 text-white bg-green " href="http://sadaka/CreateNewCampaign" style="background-color:  #00c424 ;cursor: pointer" >حفظ البيانات</button>
+                                        <button type="submit" class="btn_1 text-white bg-green "  style="background-color:  #00c424 ;cursor: pointer" >حفظ البيانات</button>
                                     </div>
                                 </div>
                             </form>

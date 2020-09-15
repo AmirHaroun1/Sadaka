@@ -102,10 +102,11 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <h3 class="widget_title greenText  text-center">تابع التبرعات</h3>
+                        <h3 class="widget_title greenText  text-center">ابدأ حملة تبرع</h3>
                         <ul class="list-group">
-                            <li class="list-group-item float-right">تابع تبرعات الحملة لحظياً
-                            </li>
+                            <li class="list-group-item float-right">حدد مشروع التبرع من المشروعات المعروضة على الموقع من قبل المؤسسات الشريكة لتوجه تبرعات الحملة إليه</li>
+                            <li class="list-group-item float-right">ادخل بيانات المتوفى وصورة شخصية</li>
+                            <li class="list-group-item float-right">أضف بياناتك لتتمكن من متابعة الحملة</li>
                         </ul>
                     </div>
                     <div class="col-md-4">
@@ -115,12 +116,12 @@
                             <li class="list-group-item float-right">انشر رابط الحملة على وسائل التواصل الاجتماعي</li>
                         </ul>
                     </div>
+
                     <div class="col-md-4">
-                        <h3 class="widget_title greenText  text-center">ابدأ حملة تبرع</h3>
+                        <h3 class="widget_title greenText  text-center">تابع التبرعات</h3>
                         <ul class="list-group">
-                            <li class="list-group-item float-right">حدد مشروع التبرع من المشروعات المعروضة على الموقع من قبل المؤسسات الشريكة لتوجه تبرعات الحملة إليه</li>
-                            <li class="list-group-item float-right">ادخل بيانات المتوفى وصورة شخصية</li>
-                            <li class="list-group-item float-right">أضف بياناتك لتتمكن من متابعة الحملة</li>
+                            <li class="list-group-item float-right">تابع تبرعات الحملة لحظياً
+                            </li>
                         </ul>
                     </div>
 

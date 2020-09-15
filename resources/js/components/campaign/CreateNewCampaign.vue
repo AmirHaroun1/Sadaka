@@ -44,8 +44,8 @@
 
                 </div>
             </div>
-            <div class="row">
-                <div v-for="project in projects"  class="col-sm-6 col-md-3 col-lg-3 col-xl-3 mt-2 justify-content-center text-center">
+            <div class="row ">
+                <div v-for="project in projects"  class="col-sm-6 col-md-3 col-lg-3 col-xl-3 mt-2  justify-content-center text-center">
                     <div @click ="setChoosenProject(project)"  class="single-home-passion text-center">
                         <div class="card" style="cursor: pointer;">
                             <div class="card-body">
@@ -75,27 +75,38 @@
 
         <div v-else-if="currentSection === 3" id="CampaignDetails" class="container mt-3 text-center">
             <div class="row">
-                <div class="col-md-4 col-sm-12">
-                    <h2 class="header">
+                <div class="col-md-7 col-sm-12">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2 class="header float-right">
+
+                                أنشاء حملة لصالحـ جمعية
+                                <span class="greenText">
+                                        {{selectedProject.charity}}
+                                 </span>
+                            </h2>
+                        </div>
+                        <div class="col-md-12">
+                            <a  @click="wantedProject ? currentSection = 1:currentSection = 2" class="btn btn-lg btn-outline-info btn_1 mt-1 float-right" style="cursor:pointer">
+                                السابقة
+                                <i class="fa fa-arrow-right"></i>
+                            </a>
+                        </div>
+                        <hr>
+                    </div>
+
+
+                </div>
+
+                <div class="col-md-5 col-sm-12">
+                    <h2 class="header float-right">
                         هدف الحملة
                         <span class="greenText  p-4" style="border-style: dotted">
                                     {{selectedProject.objective}} ج.م
                         </span>
 
                     </h2>
-                </div>
-                <div class="col-md-8 col-sm-12">
-                    <h2 class="header float-right">
-                        أنشاء حملة لصالحـ جمعية
-                        <span class="greenText">
-                                    {{selectedProject.charity}}
-                        </span>
-                        <br>
-                        <a  @click="wantedProject ? currentSection = 1:currentSection = 2" class="btn btn-lg btn-outline-info btn_1 mt-1 float-right" style="cursor:pointer">
-                            السابقة
-                            <i class="fa fa-arrow-right"></i>
-                        </a>
-                    </h2>
+
                 </div>
 
 
@@ -107,15 +118,7 @@
                         <h5>بيانات المتوفى</h5>
                     </div>
 
-                    <div class="col-md-4 text-center">
-                        <img v-if="this.CampaignImage" height = "160px" :src="this.CampaignImage">
-                        <br>
-                        <input @change="onImageChange" name="CampaignImage" style="display: none" ref="image-ref" id="imageInput"  type="file">
-                        <br>
-                        <button v-if="!this.CampaignImage" @click="uploadImage" class="btn btn-outline-info btn_1" style="cursor: pointer;">أختر صورة</button>
-                        <a v-else @click="CampaignImage = null" class="btn btn-outline-info btn_4 mt-4 p-2" style="cursor: pointer;background-color: red;color: white">حذف</a>
 
-                    </div>
 
                     <div class="col-md-8  mt-2 mb-5 form-group">
                         <label for="DeadName" class="float-right">الاسم</label>
@@ -124,7 +127,15 @@
                         <label for="campaign_description" class="float-right pt-4">نبذة عنه</label>
                         <textarea v-model="CampaignBrief" class="form-control" required id="campaign_description" rows="2" name="campaign_description"></textarea>
                     </div>
+                    <div class="col-md-4 text-center">
+                        <img v-if="this.CampaignImage" height = "160px" :src="this.CampaignImage">
+                        <br>
+                        <input @change="onImageChange" name="CampaignImage" style="display: none" ref="image-ref" id="imageInput"  type="file">
+                        <br>
+                        <a v-if="!this.CampaignImage" @click="uploadImage" class="btn btn-outline-info btn_1" style="cursor: pointer;">أختر صورة</a>
+                        <a v-else @click="CampaignImage = null" class="btn btn-outline-info btn_4 mt-4 p-2" style="cursor: pointer;background-color: red;color: white">حذف</a>
 
+                    </div>
 
                 </div>
 

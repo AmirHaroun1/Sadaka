@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Alkoumi\LaravelHijriDate\Hijri;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -12,7 +13,6 @@ class User extends Authenticatable
 
 
     protected $guarded = [];
-    protected $appends = ['photo'];
 
     protected $hidden = [
         'password', 'remember_token',
@@ -23,15 +23,20 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function getPhotoAttribute()
+    public function getImageAttribute()
     {
-        if(file_exists(public_path().'/storage/'.$this->image))
+        if(file_exists(public_path().'/storage/'.$this->attributes['image']))
         {
-            return asset('storage/'.$this->image);
+            return asset('storage/'.$this->attributes['image']);
         }
         else{
-            return asset($this->image);
+            return asset($this->attributes['image']);
         }
+    }
+
+    public function getDonationDateAttribute()
+    {
+        return Hijri::Date('j - m - Y', $this->pivot->attributes['created_at']);
     }
     public function campaigns()
     {

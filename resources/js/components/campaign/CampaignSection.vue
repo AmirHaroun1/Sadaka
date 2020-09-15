@@ -3,6 +3,13 @@
 <section class="passion_part section_padding" >
     <div class="container">
         <div class="row">
+
+            <div class="col-lg-4 ">
+                <div class="section_tittle float-right">
+                    <h2>تبرع لحملات قائمة</h2>
+                </div>
+            </div>
+
             <div class="col-lg-8">
                 <div class="section_tittle float-right">
                     <form @submit.prevent="search('/search/Campaigns/'+searchName)" method="get" class="form-inline md-form form-sm mt-0">
@@ -19,11 +26,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-4 ">
-                <div class="section_tittle float-right">
-                    <h2>تبرع لحملات قائمة</h2>
-                </div>
-            </div>
+
         </div>
         <div class="row text-center " style="padding-top:-20px" >
             <campaign-card v-show="searchedCampaigns.length == 0" v-for="campaign in Campaigns" :campaign="campaign" :key="campaign.id" ></campaign-card>
@@ -58,21 +61,18 @@
                     fetch(endpoint){
                         axios.get(endpoint)
                             .then(({data})=>{
-                                this.Campaigns.push(...data.data);
-                                this.NextUrl = data.next_page_url;
-
+                                 this.Campaigns.push(...data.campaigns.data);
+                                 this.NextUrl = data.campaigns.next_page_url;
                             })
                     },
-            search(endpoint){
-                axios.get(endpoint)
-                    .then(({data})=>{
-                        this.searchedCampaigns.length = 0;
-                        this.searchedCampaigns.push(...data.data);
-                    })
-            },
-
-
-        },
+                    search(endpoint){
+                        axios.get(endpoint)
+                            .then(({data})=>{
+                                this.searchedCampaigns.length = 0;
+                                this.searchedCampaigns.push(...data.SearchedCampaigns.data);
+                            })
+                    },
+                },
 
 
     }

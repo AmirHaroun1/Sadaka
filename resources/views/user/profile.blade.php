@@ -19,35 +19,42 @@
                     <hr>
                 </div>
             </div>
-            <div class="row">
+            <div class="row text-center">
 
-                <div class="col-md-4 text-white">
-                    <a class="btn_1 font-weight-bold green" href="{{route('user.edit')}}">تعديل بيانات الحساب</a>
+                <div class="col-md-2  pt-5 ">
+                    <img height="150px" class="rounded-circle " src="{{$user->image}}">
                 </div>
 
                 <div class="col-md-6 pt-5 ">
-                    <h2 class="font-weight-bold float-right ">{{$user->name}}</h2>
-                    <br>
-                    <br>
-                    <br>
-                    <h5 class="font-weight-bold float-right p-4 ">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2 class="font-weight-bold  text-sm-center float-md-right ">{{$user->name}}</h2>
 
-                            حملات قمت انشائها
-                        <span style="color: green;font-size: 20px">
+                        </div>
+                        <div class="col-md-12">
+                            <h5 class="font-weight-bold text-sm-center float-md-right p-4 ">
+
+                                حملات قمت انشائها
+                                <span style="color: green;font-size: 20px">
                             {{$user->campaigns_count}}
                             </span>
-                        <span  class="px-3" class="font-weight-bold" style="font-size: 24px">|</span>
+                                <span  class="px-3" class="font-weight-bold" style="font-size: 24px">|</span>
 
-                        تبرعات
-                        <span style="color: green;font-size: 20px">
+                                تبرعات
+                                <span style="color: green;font-size: 20px">
                             {{$user->donations_count}}
                             </span>
-                    </h5>
+                            </h5>
+                        </div>
+                    </div>
+
                 </div>
 
-                <div class="col-md-2  pt-5 float-right ">
-                    <img height="150px" class="rounded-circle float-right" src="{{$user->Photo}}">
+                <div class="col-md-4 text-white ">
+                    <a class="btn_1 font-weight-bold green" href="{{route('user.edit')}}">تعديل بيانات الحساب</a>
                 </div>
+
+
             </div>
         </div>
     </section>

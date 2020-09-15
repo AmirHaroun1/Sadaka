@@ -26,6 +26,10 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-md-2  pt-4 float-right ">
+                    <img class=" float-right charity-img" src="{{asset($charity->image)}}">
+                </div>
+
                 <div class="col-md-10 pt-5 ">
                     <h3 class="font-weight-bold float-right py-3 ">
                         عدد المشاريع الخيرية التابعة للجمعية :
@@ -44,12 +48,9 @@
                         </span>
                     </h3>
                 </div>
-                <div class="col-md-2  pt-4 float-right ">
-                    <img class=" float-right charity-img" src="{{asset($charity->image)}}">
-                </div>
 
                 <div class="form-group col-md-12 mt-5 text-center">
-                    <a href="#CharitiesProject" class="btn btn-outline-info btn_1 " style="cursor: pointer;">المشاريع الخيرية</a>
+                    <a href="#CharitiesProject" class="btn btn-outline-info btn_1 scroll" style="cursor: pointer;">المشاريع الخيرية</a>
                 </div>
             </div>
         </div>

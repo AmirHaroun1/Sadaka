@@ -27,6 +27,7 @@ Route::get('/Campaigns','CampaignController@index')->name('campaign.index');
 Route::get('/search/Campaigns/{name}','CampaignController@search')->name('campaign.search');
 Route::get('/CreateNewCampaign/{project:name?}/{section?}','CampaignController@create')->name('campaign.create');
 Route::post('/CreateNewCampaign','CampaignController@store')->name('campaign.store');
+Route::get('/Campaign/{campaign_id}/Remember/{campaign_name}/{DonationAmount?}/{DonationWord?}','CampaignController@show')->name('campaign.show');
 /*
 |--------------------------------------------------------------------------
 | User Routes
@@ -41,3 +42,16 @@ Route::patch('/MyProfile/update','UserController@update')->name('user.update');
 |--------------------------------------------------------------------------
 */
 Route::get('/Charity/{name}','CharityController@show')->name('charity.show');
+/*
+|--------------------------------------------------------------------------
+| Payment Gateway Routes
+|--------------------------------------------------------------------------
+*/
+Route::get('/checkout/{DonationAmount}','PaymentController@checkout')->name('check.out');
+
+/*
+|--------------------------------------------------------------------------
+| Donation Routes
+|--------------------------------------------------------------------------
+*/
+Route::post('/NewDonation','DonationController@store')->name('donation.store');

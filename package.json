@@ -27,6 +27,7 @@
         "dayjs": "^1.8.34",
         "moment": "^2.27.0",
         "relative-time-vue-component": "^4.6.1",
+        "vue-credit-card-validation": "^0.1.9",
         "vue-owl-carousel": "^2.0.3"
     }
 }

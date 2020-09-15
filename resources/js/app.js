@@ -8,12 +8,23 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-Vue.component('campaign-card', require('./components/CampaignCard.vue').default);
-Vue.component('campaign-section', require('./components/CampaignSection.vue').default);
-Vue.component('new-campaign-section', require('./components/CreateCampaign/CreateNewCampaign.vue').default);
+
+Vue.component('campaign-card', require('./components/campaign/CampaignCard.vue').default);
+Vue.component('campaign-section', require('./components/campaign/CampaignSection.vue').default);
+Vue.component('new-campaign-section', require('./components/campaign/CreateNewCampaign.vue').default);
+Vue.component('campaign-profile', require('./components/campaign/CampaignProfile.vue').default);
+
 Vue.component('edit-profile', require('./components/user/EditProfile.vue').default);
 Vue.component('carousel',require('vue-owl-carousel'));
 
+Vue.component('route',require('./ziggy'));
+Vue.component('Ziggy',require('./ziggy'));
+
+Vue.mixin({
+    methods: {
+        route: (name, params, absolute) => route(name, params, absolute, Ziggy),
+    },
+});
 const app = new Vue({
     el: '#app',
 });
