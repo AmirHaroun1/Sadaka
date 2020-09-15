@@ -1,73 +1,98 @@
-@extends('layouts.app')
+@extends('layout')
+@section('css')
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{asset('vendor/animate/animate.css')}}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{asset('vendor/css-hamburgers/hamburgers.min.css')}}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{asset('vendor/animsition/css/animsition.min.css')}}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{asset('vendor/select2/select2.min.css')}}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{asset('vendor/daterangepicker/daterangepicker.css')}}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{asset('css/util.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/main.css')}}">
+    <!--===============================================================================================-->
+
+@endsection
+@section('header')
+
+    <header class="main_menu home_menu menu_fixed animated fadeInDown" style="width: 100%;
+    background-color: rgba(13,16,29,0.8);"/>
+
+@endsection
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+    <section id="app" class="section_padding">
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
+        <div class="limiter">
+            <div class="container-login100">
+                <div class="wrap-login100">
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                    <form class="login100-form validate-form p-l-55 p-r-55 p-t-178" method="POST" action="{{ route('login') }}">
+					@csrf
+                        <span class="login100-form-title">
+						تسجيل دخول
+					</span>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                        <div class="wrap-input100 validate-input m-b-16" data-validate="Please enter username">
+                            <input class="input100 @error('email') is-invalid @enderror" type="email" name="email" placeholder="البريد الألكترونى" required autocomplete="email" value="{{old('email')}}">
+                            <span class="focus-input100"></span>
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+
+                        </div>
+                        @error('email')
+                            <div class="alert alert-danger">
+                                <p class="text-sm">
+                                    {{ $message }}
+                                </p>
                             </div>
+                        @enderror
+                        <div class="wrap-input100 validate-input" data-validate = "Please enter password">
+                            <input class="input100 @error('password') is-invalid @enderror" type="password" name="password" placeholder="كلمة المرور" required>
+                            <span class="focus-input100"></span>
+
+                        </div>
+                        <div class="row pt-3 ">
+                            @error('password')
+                            <div class="alert alert-danger text-center">
+                                <p class="text-sm">
+                                    {{ $message }}
+                                </p>
+                            </div>
+                            @enderror
                         </div>
 
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                        <div class="text-right p-t-13 p-b-23">
+						<span class="txt1">
+							Forgot
+						</span>
+                            <a href="#" class="txt2">
+                                Username / Password?
+                            </a>
                         </div>
 
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
+                        <div class="container-login100-form-btn">
+                            <button class="login100-form-btn font-weight-bold">
+                               تسجيل دخول
+                            </button>
                         </div>
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
+                        <div class="flex-col-c p-t-17 p-b-40">
+						<span class="txt1 p-b-9">
+							ليس لديك حساب؟
+						</span>
 
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
+                            <a href="{{route('register')}}" class="txt3" fa-2x>
+                                سجل الأن
+                            </a>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+
+
+    </section>
 @endsection

@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="{{asset('css/slick.css')}}">
     <!-- style CSS -->
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
-
+    @yield('css')
 @routes
 </head>
 
@@ -186,6 +186,13 @@
 <script src="{{asset('js/jquery.validate.min.js')}}"></script>
 <script src="{{asset('js/mail-script.js')}}"></script>
 <script src="{{asset('js/contact.js')}}"></script>
+<script src="{{asset('vendor/animsition/js/animsition.min.js')}}"></script>
+<script src="{{asset('vendor/select2/select2.min.js')}}"></script>
+<script src="{{asset('vendor/daterangepicker/moment.min.js')}}"></script>
+<script src="{{asset('vendor/daterangepicker/daterangepicker.js')}}"></script>
+<script src="{{asset('vendor/countdowntime/countdowntime.js')}}"></script>
+<script src="{{asset('js/main.js')}}"></script>
+
 <!-- custom js -->
 <script src="{{asset('js/custom.js')}}"></script>
 

@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 class LoginController extends Controller
 {
     /*
@@ -27,7 +29,37 @@ class LoginController extends Controller
      * @var string
      */
     protected $redirectTo = '/';
+    public function login(Request $request)
+    {
+        //Error messages
+        $messages = [
+            'email.required' => "Email is required",
+            'email.email' => "Email is not valid",
+            'email.exists' => "الحساب غير مسجل ,يرجى التأكد من الأيميل",
+            'password.required' => "Password is required",
+            'password.min' => "Password must be at least 6 characters"
+        ];
 
+        // validate the form data
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|exists:users,email',
+            'password' => 'required|min:6'
+        ], $messages);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        } else {
+            // attempt to log
+            if (Auth::attempt([ 'email' => $request->email, 'password' => $request->password ], $request->remember)) {
+                // if successful -> redirect forward
+                return redirect()->intended(route('user.overview'));
+            }
+            // if unsuccessful -> redirect back
+            return redirect()->back()->withInput($request->only('email', 'remember'))->withErrors([
+                'password' => 'كلمة مرور خاطئة',
+            ]);
+        }
+    }
     /**
      * Create a new controller instance.
      *

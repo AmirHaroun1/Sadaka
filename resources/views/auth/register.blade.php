@@ -1,90 +1,112 @@
-@extends('layouts.app')
+@extends('layout')
+@section('css')
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{asset('vendor/animate/animate.css')}}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{asset('vendor/css-hamburgers/hamburgers.min.css')}}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{asset('vendor/animsition/css/animsition.min.css')}}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{asset('vendor/select2/select2.min.css')}}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{asset('vendor/daterangepicker/daterangepicker.css')}}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{asset('css/util.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/main.css')}}">
+    <!--===============================================================================================-->
 
+@endsection
+@section('header')
+
+    <header class="main_menu home_menu menu_fixed animated fadeInDown" style="width: 100%;
+    background-color: rgba(13,16,29,0.8);"/>
+
+@endsection
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+    <section id="app" class="section_padding">
+        <div class="limiter">
+            <div class="container-login100">
+                <div class="wrap-login100">
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form class="login100-form validate-form p-l-55 p-r-55 p-t-178"  method="POST" action="{{ route('register') }}">
                         @csrf
+                        <span class="login100-form-title">
+						أشتراك حساب
+					</span>
+                        <div class="wrap-input100 validate-input m-b-16" data-validate="Please enter username">
+                            <input class="input100 @error('email') is-invalid @enderror" type="email" name="email" placeholder="البريد الألكترونى" required autocomplete="email" value="{{old('email')}}">
+                            <span class="focus-input100"></span>
 
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('phone') }}</label>
+                        @error('email')
+                        <div class="alert alert-danger">
+                            <p class="text-sm">
+                                {{ $message }}
+                            </p>
+                        </div>
+                        @enderror
+                        <div class="wrap-input100 validate-input m-b-16" data-validate="Please enter username">
+                            <input class="input100 @error('name') is-invalid @enderror" type="text" name="name" placeholder="الأسم" required autocomplete="name" value="{{old('name')}}">
+                            <span class="focus-input100"></span>
 
-                            <div class="col-md-6">
-                                <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="phone" autofocus>
 
-                                @error('phone')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                        </div>
+                        @error('name')
+                        <div class="alert alert-danger">
+                            <p class="text-sm">
+                                {{ $message }}
+                            </p>
+                        </div>
+                        @enderror
+                        <div class="wrap-input100 validate-input m-b-16" data-validate="Please enter username">
+                            <input class="input100 @error('phone') is-invalid @enderror" type="text" name="phone" placeholder="رقم الهاتف" required autocomplete="phone" value="{{old('phone')}}">
+                            <span class="focus-input100"></span>
+                        </div>
+                        @error('phone')
+                        <div class="alert alert-danger">
+                            <p class="text-sm">
+                                {{ $message }}
+                            </p>
+                        </div>
+                        @enderror
+                        <div class="wrap-input100 validate-input" data-validate = "Please enter password">
+                            <input class="input100 @error('password') is-invalid @enderror" type="password" name="password" placeholder="كلمة المرور" required>
+                            <span class="focus-input100"></span>
+
+                        </div>
+                        <div class="row pt-3 ">
+                            @error('password')
+                            <div class="alert alert-danger text-center">
+                                <p class="text-sm">
+                                    {{ $message }}
+                                </p>
                             </div>
+                            @enderror
+                        </div>
+                        <div class="wrap-input100 validate-input" data-validate = "Please enter password">
+                            <input class="input100 @error('password_confirmation') is-invalid @enderror" type="password" name="password_confirmation" placeholder="تأكيد كلمة المرور " required>
+                            <span class="focus-input100"></span>
+                        </div>
+                        <div class="row pt-3 ">
+                            @error('password_confirmation')
+                            <div class="alert col-md-12 alert-danger text-center">
+                                <p class="text-sm">
+                                    {{ $message }}
+                                </p>
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="container-login100-form-btn flex-col-c p-t-17 p-b-40">
+                            <button class="login100-form-btn font-weight-bold">
+                                تسجيل حساب
+                            </button>
                         </div>
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
                     </form>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+
+    </section>
 @endsection

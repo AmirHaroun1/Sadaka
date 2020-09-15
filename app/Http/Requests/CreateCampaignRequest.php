@@ -12,10 +12,10 @@ class CreateCampaignRequest extends FormRequest
     {
         return [
             'name' => [ 'string', 'max:255', 'min:3'],
-            'phone' => [ 'string', 'max:11','min:11'],
+            'phone'=>['required','unique:users','min:11','max:11'],
             'email' => ['unique:users','email'],
             'password' => [ 'string','min:5'],
-            'description' => [ 'string'],
+            'description' => ['string'],
         ];
     }
 

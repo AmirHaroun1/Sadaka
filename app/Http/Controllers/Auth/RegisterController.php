@@ -49,12 +49,30 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'phone'=>['required','unique:users'],
+        $messages = ([
+            'name.min' => 'الأسم يجب أن يكون 3 أحرف على الأقل',
+            'name.max' => 'الأسم يجب أن يكون 255 حرف على الأكثر',
+
+            'phone.max' => 'رقم الهاتف يجب أن يكون 11 رقم',
+            'phone.min' => 'رقم الهاتف يجب أن يكون 11 رقم',
+            'phone.unique' =>'هذا الرقم مسجل بالفعل',
+
+            'email.unique' => 'هذا البريد الألكنرونى مسجل بالفعل ',
+
+            'password.min'=>'الرقم السري يجب أن يكون أكثر من 5 أحرف',
+            'password_confirmation.same' => 'غير مطابق لكلمة السر',
+            'password_confirmation.min' => 'الرقم السري يجب أن يكون أكثر من 5 أحرف',
+
         ]);
+        return Validator::make($data, [
+            'name' => ['required', 'string', 'max:255','min:3'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:5'],
+            'password_confirmation' => ['required','min:5','same:password'],
+
+            'phone'=>['required','unique:users','min:11','max:11'],
+
+        ],$messages);
     }
 
     /**

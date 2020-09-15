@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index');
 
 /*
 |--------------------------------------------------------------------------
@@ -33,9 +34,13 @@ Route::get('/Campaign/{campaign_id}/Remember/{campaign_name}/{DonationAmount?}/{
 | User Routes
 |--------------------------------------------------------------------------
 */
-Route::get('/MyProfile','UserController@show')->name('user.show');
-Route::get('/MyProfile/edit','UserController@edit')->name('user.edit');
-Route::patch('/MyProfile/update','UserController@update')->name('user.update');
+Route::group(['middleware' => ['auth']], function () {
+    //
+    Route::get('/MyProfile','UserController@show')->name('user.show');
+    Route::get('/MyProfile/edit','UserController@edit')->name('user.edit');
+    Route::patch('/MyProfile/update','UserController@update')->name('user.update');
+});
+
 /*
 |--------------------------------------------------------------------------
 | Charity Routes
@@ -47,11 +52,11 @@ Route::get('/Charity/{name}','CharityController@show')->name('charity.show');
 | Payment Gateway Routes
 |--------------------------------------------------------------------------
 */
-Route::get('/checkout/{DonationAmount}','PaymentController@checkout')->name('check.out');
+Route::get('/checkout/{DonationAmount}','PaymentController@checkout')->name('check.out')->middleware('auth');
 
 /*
 |--------------------------------------------------------------------------
 | Donation Routes
 |--------------------------------------------------------------------------
 */
-Route::post('/NewDonation','DonationController@store')->name('donation.store');
+Route::post('/NewDonation','DonationController@store')->name('donation.store')->middleware('auth');
