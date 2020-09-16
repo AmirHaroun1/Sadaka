@@ -12,7 +12,7 @@ class CreateCampaignRequest extends FormRequest
     {
         return [
             'name' => [ 'string', 'max:255', 'min:3'],
-            'phone'=>['required','unique:users','min:11','max:11'],
+            'phone'=>['unique:users','min:11','max:11'],
             'email' => ['unique:users','email'],
             'password' => [ 'string','min:5'],
             'description' => ['string'],
@@ -27,7 +27,7 @@ class CreateCampaignRequest extends FormRequest
 
             'phone.max' => 'رقم الهاتف يجب أن يكون 11 رقم',
             'phone.min' => 'رقم الهاتف يجب أن يكون 11 رقم',
-
+            'phone.uniqe' => 'هذا الرقم مسجل بالفعل',
             'email.unique' => 'هذا البريد الألكنرونى مسجل بالفعل ',
 
             'password.min'=>'الرقم السري يجب أن يكون أكثر من 5 أحرف',

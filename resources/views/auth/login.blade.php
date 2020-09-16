@@ -34,7 +34,7 @@
 					@csrf
                         <span class="login100-form-title">
 						تسجيل دخول
-					</span>
+					    </span>
 
                         <div class="wrap-input100 validate-input m-b-16" data-validate="Please enter username">
                             <input class="input100 @error('email') is-invalid @enderror" type="email" name="email" placeholder="البريد الألكترونى" required autocomplete="email" value="{{old('email')}}">

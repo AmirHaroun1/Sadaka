@@ -61,11 +61,15 @@
                     <div class="col-md-4 col-sm-12 pt-5 ">
                         <div class="row ">
                             <div class="col-md-12 col-sm-12 py-3 text-center float-md-left ">
-                                <button type="button"  data-toggle="modal" data-target="#DonationModel" style="width:190px; font-size: 22px" class="genric-btn primary e-large">
+                                <button v-if="IsAuth" type="button"  data-toggle="modal" data-target="#DonationModel" style="width:190px; font-size: 22px" class="genric-btn primary e-large">
                                     <i class="fa fa-heart"></i>
-
                                     تبرع الأن
                                 </button>
+                                <a v-else type="button" :href="route('login')" style="width:190px; font-size: 22px" class="genric-btn primary e-large">
+                                    <i class="fa fa-heart"></i>
+                                    تبرع الأن
+                                </a>
+
                                 <!-- Donation Modal -->
                                 <div class="modal fade pt-5" id="DonationModel" style="z-index: 10000" tabindex="-1" role="dialog" aria-labelledby="DonationModel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -161,10 +165,10 @@
                                     </div>
                                 </div>                            </div>
                             <div class="col-md-12 col-sm-12 text-center float-md-left ">
-                                <button style="width:190px; font-size: 18px" class="genric-btn primary-border  e-large ">
+                                <a style="width:190px; font-size: 18px" class="genric-btn primary-border  e-large " :href="ComputedShareURL">
                                     <i class="fa fa-share-alt"></i>
                                     انشر الحملة
-                                </button>
+                                </a>
                             </div>
                         </div>
 
@@ -250,7 +254,7 @@
     export default {
         name: "CampaignProfile.vue",
         props : {
-            'RedirectionRouteAfterPayment': {required: true },
+            'IsAuth' : Boolean,
             'campaign':Object,
         },
         data()  {
@@ -302,6 +306,9 @@
                 return route('campaign.show',[
                     this.campaign.id,this.campaign.name,this.DonationAmount,this.DonationWord
                 ]);
+            },
+            ComputedShareURL:function(){
+                return "https://www.facebook.com/sharer/sharer.php?u="+window.location.href
             },
         }
     }

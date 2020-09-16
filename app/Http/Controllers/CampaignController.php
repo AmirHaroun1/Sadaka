@@ -69,7 +69,7 @@ class CampaignController extends Controller
         }
         $campaign->save();
 
-        return response()->json([],201);
+        return response()->json(['campaign'=>$campaign],201);
     }
 
     public function show($campaignID,$campaignName)

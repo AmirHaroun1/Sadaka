@@ -52,7 +52,7 @@ class LoginController extends Controller
             // attempt to log
             if (Auth::attempt([ 'email' => $request->email, 'password' => $request->password ], $request->remember)) {
                 // if successful -> redirect forward
-                return redirect()->intended(route('user.overview'));
+                return redirect()->intended(route('home'));
             }
             // if unsuccessful -> redirect back
             return redirect()->back()->withInput($request->only('email', 'remember'))->withErrors([

@@ -297,8 +297,8 @@
                         formData.append('password',this.NewUserPassword);
                     }
                     axios.post('/CreateNewCampaign',formData)
-                        .then(function (response) {
-                            console.log(response);
+                        .then(({data}) => {
+                            window.location = route('campaign.show',[data.campaign.id,data.campaign.name])
                         })
                         .catch(e => {
                             console.log(e);

@@ -30,7 +30,7 @@
 
     <div id="app">
     <!-- Campaign Profile Info start-->
-        <campaign-profile  :campaign="{{$campaign}}"  ></campaign-profile>
+        <campaign-profile  :campaign="{{$campaign}}" :is-auth="{{json_encode(Auth::check())}}"  ></campaign-profile>
     <!-- Campaign Profile Info start-->
     </div>
 

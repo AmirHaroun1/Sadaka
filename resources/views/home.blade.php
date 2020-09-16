@@ -9,7 +9,7 @@
                         <div class="banner_text_iner">
                             <h1>يرحلون وتبقى ذكراهم</h1>
 
-                            <a class="btn_1 green" href="#" style="background-color:  #00c424 ; font-size: 16px;color: white">ابدأ حملة تبرع</a>
+                            <a class="btn_1 green" href="{{route('campaign.create')}}" style="background-color:  #00c424 ; font-size: 16px;color: white">ابدأ حملة تبرع</a>
                         </div>
                     </div>
                 </div>

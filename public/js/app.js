@@ -2273,14 +2273,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CampaignProfile.vue",
   props: {
-    'RedirectionRouteAfterPayment': {
-      required: true
-    },
+    'IsAuth': Boolean,
     'campaign': Object
   },
   data: function data() {
@@ -2324,6 +2326,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     RedirectionURLAfterPayment: function RedirectionURLAfterPayment() {
       return route('campaign.show', [this.campaign.id, this.campaign.name, this.DonationAmount, this.DonationWord]);
+    },
+    ComputedShareURL: function ComputedShareURL() {
+      return "https://www.facebook.com/sharer/sharer.php?u=" + window.location.href;
     }
   }
 });
@@ -2735,8 +2740,9 @@ __webpack_require__.r(__webpack_exports__);
         formData.append('password', this.NewUserPassword);
       }
 
-      axios.post('/CreateNewCampaign', formData).then(function (response) {
-        console.log(response);
+      axios.post('/CreateNewCampaign', formData).then(function (_ref) {
+        var data = _ref.data;
+        window.location = route('campaign.show', [data.campaign.id, data.campaign.name]);
       })["catch"](function (e) {
         console.log(e);
         _this2.errors = e.response.data.errors;
@@ -60580,7 +60586,39 @@ var render = function() {
                     "col-md-12 col-sm-12 py-3 text-center float-md-left "
                 },
                 [
-                  _vm._m(1),
+                  _vm.IsAuth
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "genric-btn primary e-large",
+                          staticStyle: { width: "190px", "font-size": "22px" },
+                          attrs: {
+                            type: "button",
+                            "data-toggle": "modal",
+                            "data-target": "#DonationModel"
+                          }
+                        },
+                        [
+                          _c("i", { staticClass: "fa fa-heart" }),
+                          _vm._v(
+                            "\n                                تبرع الأن\n                            "
+                          )
+                        ]
+                      )
+                    : _c(
+                        "a",
+                        {
+                          staticClass: "genric-btn primary e-large",
+                          staticStyle: { width: "190px", "font-size": "22px" },
+                          attrs: { type: "button", href: _vm.route("login") }
+                        },
+                        [
+                          _c("i", { staticClass: "fa fa-heart" }),
+                          _vm._v(
+                            "\n                                تبرع الأن\n                            "
+                          )
+                        ]
+                      ),
                   _vm._v(" "),
                   _c(
                     "div",
@@ -60791,13 +60829,13 @@ var render = function() {
                                                 }
                                               }),
                                               _vm._v(" "),
+                                              _vm._m(1),
+                                              _vm._v(" "),
                                               _vm._m(2),
                                               _vm._v(" "),
                                               _vm._m(3),
                                               _vm._v(" "),
                                               _vm._m(4),
-                                              _vm._v(" "),
-                                              _vm._m(5),
                                               _vm._v(" "),
                                               _c(
                                                 "div",
@@ -60870,7 +60908,7 @@ var render = function() {
                               ])
                             ]),
                             _vm._v(" "),
-                            _vm._m(6)
+                            _vm._m(5)
                           ])
                         ]
                       )
@@ -60879,7 +60917,28 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _vm._m(7)
+              _c(
+                "div",
+                {
+                  staticClass: "col-md-12 col-sm-12 text-center float-md-left "
+                },
+                [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "genric-btn primary-border  e-large ",
+                      staticStyle: { width: "190px", "font-size": "18px" },
+                      attrs: { href: _vm.ComputedShareURL }
+                    },
+                    [
+                      _c("i", { staticClass: "fa fa-share-alt" }),
+                      _vm._v(
+                        "\n                                انشر الحملة\n                            "
+                      )
+                    ]
+                  )
+                ]
+              )
             ])
           ])
         ])
@@ -61064,29 +61123,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "genric-btn primary e-large",
-        staticStyle: { width: "190px", "font-size": "22px" },
-        attrs: {
-          type: "button",
-          "data-toggle": "modal",
-          "data-target": "#DonationModel"
-        }
-      },
-      [
-        _c("i", { staticClass: "fa fa-heart" }),
-        _vm._v(
-          "\n\n                                تبرع الأن\n                            "
-        )
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "number col-md-12 pt-3" }, [
       _c("label", { staticClass: "float-right" }, [_vm._v("Card Number")]),
       _vm._v(" "),
@@ -61216,30 +61252,6 @@ var staticRenderFns = [
         [_vm._v("غلق")]
       )
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "col-md-12 col-sm-12 text-center float-md-left " },
-      [
-        _c(
-          "button",
-          {
-            staticClass: "genric-btn primary-border  e-large ",
-            staticStyle: { width: "190px", "font-size": "18px" }
-          },
-          [
-            _c("i", { staticClass: "fa fa-share-alt" }),
-            _vm._v(
-              "\n                                انشر الحملة\n                            "
-            )
-          ]
-        )
-      ]
-    )
   }
 ]
 render._withStripped = true
@@ -74967,8 +74979,8 @@ if (typeof window !== 'undefined' && typeof window.Ziggy !== 'undefined') {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\xampp\htdocs\Sadaka\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\xampp\htdocs\Sadaka\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\xampp\htdocs\RememberThem\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\xampp\htdocs\RememberThem\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
